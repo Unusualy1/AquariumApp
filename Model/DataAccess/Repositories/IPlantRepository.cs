@@ -2,11 +2,8 @@
 
 public interface IPlantRepository
 {
-    List<Plant> GetAll();
-
-    Task Add(Plant plant);
-
-    Task Update(Plant plant);
-
-    Task Delete(Plant plant);
+    public List<Plant> GetAll(); 
+    public Task Add(Plant plant); 
+    public Task Update(Plant plant); 
+    public Task Delete(Plant plant);
 }

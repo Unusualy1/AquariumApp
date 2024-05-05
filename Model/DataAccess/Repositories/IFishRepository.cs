@@ -2,11 +2,8 @@
 
 public interface IFishRepository
 {
-    List<Fish> GetAll();
-
-    Task Add(Fish fish);
-    
-    Task Update(Fish fish);
-    
-    Task Delete(Fish fish);
+    public List<Fish> GetAll(); 
+    public Task Add(Fish fish); 
+    public Task Update(Fish fish); 
+    public Task Delete(Fish fish);
 }
