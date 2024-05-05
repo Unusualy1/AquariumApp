@@ -2,4 +2,7 @@
 
 public interface IHabitatConditionRepository
 {
+    HabitatConditions Get();
+
+    Task Update(HabitatConditions habitatConditions);
 }
