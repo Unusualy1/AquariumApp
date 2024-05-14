@@ -1,27 +1,41 @@
 ﻿using Model;
+using Model.DataAccess;
 using Model.DataAccess.Repositories;
 
 namespace ViewModel.UseCases;
 
 public class DecorationRepository : IDecorationRepository
 {
-    public Task Add(Decoration decoration)
+    public async Task Add(Decoration decoration)
     {
-        throw new NotImplementedException();
+        using Context context = new();
+        
+        context.Decorations.Add(decoration);
+        await context.SaveChangesAsync();
     }
 
-    public Task Delete(Decoration decoration)
+    public async Task Update(Decoration decoration)
     {
-        throw new NotImplementedException();
+        using Context context = new();
+
+        context.Decorations.Update(decoration);
+        await context.SaveChangesAsync();
+    }
+
+    public async Task Delete(Decoration decoration)
+    {
+        using Context context = new();
+
+        context.Decorations.Remove(decoration);
+        await context.SaveChangesAsync();
     }
 
     public List<Decoration> GetAll()
     {
-        throw new NotImplementedException();
+        using Context context = new();
+
+        return [.. context.Decorations];
     }
 
-    public Task Update(Decoration decoration)
-    {
-        throw new NotImplementedException();
-    }
+    
 }

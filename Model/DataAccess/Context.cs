@@ -18,7 +18,7 @@ public class Context : DbContext
     public Context()
     {
         Database.EnsureCreated();
-        // Database.EnsureDeleted();
+        //Database.EnsureDeleted();
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -30,11 +30,21 @@ public class Context : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.ApplyConfiguration(new DecorationsCfg());
-        modelBuilder.ApplyConfiguration(new FishCfg());
-        modelBuilder.ApplyConfiguration(new FishSpeciesCfg());
-        modelBuilder.ApplyConfiguration(new HabitatConditionsCfg());
-        modelBuilder.ApplyConfiguration(new PlantCfg());
+        modelBuilder.Entity<HabitatConditions>().HasData(new HabitatConditions
+        {
+            Id = 1,
+            WaterTemperature = 0,
+            DegreeOfAcidity = 0,
+            Lighting = 0,
+            OxygenLevel = 0,
+            Salinity = 0,
+            Substrate = "Sample"
+        });
+        //modelBuilder.ApplyConfiguration(new DecorationsCfg());
+        //modelBuilder.ApplyConfiguration(new FishCfg());
+        //modelBuilder.ApplyConfiguration(new FishSpeciesCfg());
+        //modelBuilder.ApplyConfiguration(new HabitatConditionsCfg());
+        //modelBuilder.ApplyConfiguration(new PlantCfg());
     }
     
 }

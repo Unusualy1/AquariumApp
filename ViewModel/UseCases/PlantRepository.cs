@@ -1,28 +1,40 @@
 ﻿
 using Model;
+using Model.DataAccess;
 using Model.DataAccess.Repositories;
 
 namespace ViewModel.UseCases;
 
 public class PlantRepository : IPlantRepository
 {
-    public Task Add(Plant plant)
+    public async Task Add(Plant plant)
     {
-        throw new NotImplementedException();
+        using Context context = new();
+
+        context.Plants.Add(plant);
+        await context.SaveChangesAsync();
     }
 
-    public Task Delete(Plant plant)
+    public async Task Update(Plant plant)
     {
-        throw new NotImplementedException();
+        using Context context = new();
+
+        context.Plants.Update(plant);
+        await context.SaveChangesAsync();
+    }
+
+    public async Task Delete(Plant plant)
+    {
+        using Context context = new();
+
+        context.Plants.Remove(plant);
+        await context.SaveChangesAsync();
     }
 
     public List<Plant> GetAll()
     {
-        throw new NotImplementedException();
-    }
+        using Context context = new();
 
-    public Task Update(Plant plant)
-    {
-        throw new NotImplementedException();
+        return [.. context.Plants];
     }
 }

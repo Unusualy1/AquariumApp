@@ -1,27 +1,38 @@
 ﻿using Model;
+using Model.DataAccess;
 using Model.DataAccess.Repositories;
 
 namespace ViewModel.UseCases;
 
 public class FishRepository : IFishRepository
 {
-    public Task Add(Fish fish)
+    public async Task Add(Fish fish)
     {
-        throw new NotImplementedException();
+        using Context context = new();
+
+        context.Fishes.Add(fish);
+        await context.SaveChangesAsync();
+    }
+    public async Task Update(Fish fish)
+    {
+        using Context context = new();
+
+        context.Fishes.Update(fish);
+        await context.SaveChangesAsync();
     }
 
-    public Task Delete(Fish fish)
+    public async Task Delete(Fish fish)
     {
-        throw new NotImplementedException();
+        using Context context = new();
+
+        context.Fishes.Remove(fish);
+        await context.SaveChangesAsync();
     }
 
     public List<Fish> GetAll()
     {
-        throw new NotImplementedException();
-    }
+        using Context context = new();
 
-    public Task Update(Fish fish)
-    {
-        throw new NotImplementedException();
+        return [.. context.Fishes];
     }
 }

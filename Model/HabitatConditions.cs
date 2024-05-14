@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 
 namespace Model;
@@ -8,10 +9,12 @@ namespace Model;
 /// </summary>
 public partial class HabitatConditions : ObservableValidator
 {
+    [ObservableProperty]
+    private long _id;
+
     /// <summary>
     /// Температура воды (в цельсиях)
     /// </summary>
-
     [Range(-273.15, double.MaxValue,
          ErrorMessage = "Значения для темпераутры воды быть между {1} и {2}.")]
     [ObservableProperty]
@@ -40,14 +43,6 @@ public partial class HabitatConditions : ObservableValidator
         ErrorMessage = "Почва не может превышать {1} символов.")]
     [ObservableProperty]
     private string _substrate = string.Empty;
-
-    /// <summary>
-    /// Жесткость воды (в градусах жесткости)
-    /// </summary>
-    [Range(0.0, double.MaxValue,
-        ErrorMessage = "Значения для жесткости воды быть между {1} и {2}.")]
-    [ObservableProperty]
-    private double _waterFlow;
 
     /// <summary>
     /// Уровень кислорода в воде (в ppm)

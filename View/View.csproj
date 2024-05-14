@@ -6,10 +6,33 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>fish.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resourses\Icons\AcidityLevelIcon.png" />
+    <None Remove="Resourses\Icons\LightingLevelIcon.png" />
+    <None Remove="Resourses\Icons\OxygenLevelIcon.png" />
+    <None Remove="Resourses\Icons\SalinityLevelIcon.png" />
+    <None Remove="Resourses\Icons\SoilIcon.png" />
+    <None Remove="Resourses\Icons\TemperatureIcon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="fish.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\ViewModel\ViewModel.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resourses\Icons\AcidityLevelIcon.png" />
+    <Resource Include="Resourses\Icons\LightingLevelIcon.png" />
+    <Resource Include="Resourses\Icons\OxygenLevelIcon.png" />
+    <Resource Include="Resourses\Icons\SalinityLevelIcon.png" />
+    <Resource Include="Resourses\Icons\SoilIcon.png" />
+    <Resource Include="Resourses\Icons\TemperatureIcon.png" />
   </ItemGroup>
 
 </Project>

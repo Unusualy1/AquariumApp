@@ -3,10 +3,29 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:View"
+        xmlns:converters="clr-namespace:View.Convertres"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        xmlns:tabs="clr-namespace:View.Tabs"
+        Title="Дневник аквариума" 
+        MinHeight="550" 
+        Height="600" 
+        Width="850"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen">
+    
     <Grid>
-
+        <TabControl >
+            <TabItem Header="Условия содержания" FontFamily="Consolas" FontSize="16" >
+                <tabs:HabitatConditionsTab/>
+            </TabItem>
+            <TabItem Header="Рыбы" FontFamily="Consolas" FontSize="16" Background="Snow">
+            </TabItem>
+            <TabItem Header="Виды рыб" FontFamily="Consolas" FontSize="16">
+            </TabItem>
+            <TabItem Header="Декорации" FontFamily="Consolas" FontSize="16">
+            </TabItem>
+            <TabItem Header="Растения" FontFamily="Consolas" FontSize="16">
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>
