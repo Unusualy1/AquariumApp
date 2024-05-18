@@ -1,0 +1,74 @@
+﻿<Window x:Class="View.Tabs.HabitatConditions.HabitatConditionsEditWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:View.Tabs.HabitatConditions"
+        mc:Ignorable="d"
+        Title="Изменение условий обитания" Height="350" Width="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Orientation="Vertical"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Width="200">
+            <TextBlock  FontFamily="Consolas" FontSize="12" >
+                <Run Text="Уровень" />
+                <Run Text="температуры,"  Foreground="#FF3C73FB" />
+                <Run Text="°C" />
+            </TextBlock>
+            <TextBox Name="TemperatureBlock" Text="{Binding EditHabitatConditions.WaterTemperature, Mode=TwoWay, StringFormat=N1, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource errorTextStyle}"/>
+
+            <TextBlock  FontFamily="Consolas" FontSize="12" >
+                <Run Text="Уровень" />
+                <Run Text="кислотности,"  Foreground="#FF37922B" />
+                <Run Text="pH" />
+            </TextBlock>
+            <TextBox Name="AcidityBlock" Text="{Binding EditHabitatConditions.DegreeOfAcidity, ValidatesOnDataErrors=True, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource errorTextStyle}"/>
+
+            <TextBlock  FontFamily="Consolas" FontSize="12" >
+                <Run Text="Уровень" />
+                <Run Text="освещенности,"  Foreground="#FF8F9029" />
+                <Run Text="лк" />
+            </TextBlock>
+            <TextBox Name="LightingBlock" Text="{Binding EditHabitatConditions.Lighting, StringFormat=N2, ValidatesOnDataErrors=True, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource errorTextStyle}"/>
+
+
+            <TextBlock FontFamily="Consolas" FontSize="12" >
+                <Run Text="Уровень" />
+                <Run Text="солености,"  Foreground="#FF7E888A" />
+                <Run Text="мг/л"/>
+            </TextBlock>
+            <TextBox Name="SalinityBlock" Text="{Binding EditHabitatConditions.Salinity,StringFormat=N2, ValidatesOnDataErrors=True, Mode=TwoWay}" Style="{StaticResource errorTextStyle}"/>
+            
+            <TextBlock FontFamily="Consolas" FontSize="12" >
+                <Run Text="Уровень" />
+                <Run Text="кислорода,"  Foreground="#FF80DAEB" />
+                <Run Text="ppm"/>
+            </TextBlock>
+            <TextBox Name="OxygenBlock" Text="{Binding EditHabitatConditions.OxygenLevel, StringFormat=N2,ValidatesOnDataErrors=True, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource errorTextStyle}"/>
+
+            
+    
+            <TextBlock FontFamily="Consolas" FontSize="12" >
+                <Run Text="Текущая" />
+                <Run Text="почва"  Foreground="#FF964B00" />
+            </TextBlock>
+            <TextBox Name="SubstrateBlock" Text="{Binding EditHabitatConditions.Substrate, ValidatesOnDataErrors=True, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource errorTextStyle}"/>
+            
+            
+        </StackPanel>
+        <Button Grid.Row="1" 
+            Content="Применить" 
+            Command="{Binding SaveChangesCommand}"  
+            FontFamily="Consolas" FontSize="16" BorderBrush="#FF060303" Foreground="#FF0C0808" Background="#FFC0DEA9">
+            <Button.InputBindings>
+                <KeyBinding Key="Enter" Command="{Binding SaveChangesCommand}" />
+            </Button.InputBindings>
+        </Button>
+
+    </Grid>
+</Window>

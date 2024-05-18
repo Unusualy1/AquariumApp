@@ -2,26 +2,65 @@
 using CommunityToolkit.Mvvm.Input;
 using Model;
 using Model.DataAccess.Repositories;
-using System.Collections.ObjectModel;
 using ViewModel.Abstrations;
 using ViewModel.UseCases;
+using System.Windows;
 
 namespace ViewModel;
 
+using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 public partial class HabitatConditionsViewModel : BaseViewModel
 {
     private readonly IHabitatConditionRepository _habitatConditionRepository = new HabitatConditionsRepository();
 
-    private State _state = State.OnDefault;
-
     [ObservableProperty]
     private HabitatConditions? _habitatCondtitions = null;
 
+    [ObservableProperty]
+    private HabitatConditions? _editHabitatConditions;
+
     public HabitatConditionsViewModel()
     {
-        _habitatCondtitions =  _habitatConditionRepository.Get();
+        LoadData();
+    }
+
+    private void LoadData()
+    {
+        HabitatCondtitions = _habitatConditionRepository.Get();
+        EditHabitatConditions = _habitatConditionRepository.Get();
+    }
+
+    private void CopyHabitatConditions()
+    {
+        if (EditHabitatConditions != null && HabitatCondtitions != null)
+        {
+            HabitatCondtitions.WaterTemperature = EditHabitatConditions.WaterTemperature;
+            HabitatCondtitions.DegreeOfAcidity = EditHabitatConditions.DegreeOfAcidity;
+            HabitatCondtitions.Lighting = EditHabitatConditions.Lighting;
+            HabitatCondtitions.Substrate = EditHabitatConditions.Substrate;
+            HabitatCondtitions.OxygenLevel = EditHabitatConditions.OxygenLevel;
+            HabitatCondtitions.Salinity = EditHabitatConditions.Salinity;
+        }
+    }
+
+    [RelayCommand]
+    public void SaveChanges()
+    {
+        if (EditHabitatConditions != null && HabitatCondtitions != null)
+        {
+            var validationContext = new ValidationContext(EditHabitatConditions);
+            var validationResults = new List<ValidationResult>();
+
+            if (Validator.TryValidateObject(EditHabitatConditions, validationContext, validationResults, true))
+            {
+                CopyHabitatConditions();
+                _habitatConditionRepository.Update(HabitatCondtitions);
+            }
+        }
     }
 }
+
  

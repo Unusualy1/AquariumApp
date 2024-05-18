@@ -33,12 +33,12 @@ public class Context : DbContext
         modelBuilder.Entity<HabitatConditions>().HasData(new HabitatConditions
         {
             Id = 1,
-            WaterTemperature = 0,
+            WaterTemperature = 0.0,
             DegreeOfAcidity = 0,
-            Lighting = 0,
-            OxygenLevel = 0,
-            Salinity = 0,
-            Substrate = "Sample"
+            Lighting = 0.0,
+            OxygenLevel = 0.0,
+            Salinity = 0.0,
+            Substrate = "Не указано"
         });
         //modelBuilder.ApplyConfiguration(new DecorationsCfg());
         //modelBuilder.ApplyConfiguration(new FishCfg());
