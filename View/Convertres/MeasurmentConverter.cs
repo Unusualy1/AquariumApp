@@ -22,6 +22,9 @@ namespace View.Convertres
                     return $"{value} pH";
                 case DataType.SalinityLevel:
                     return $"{value} мг/л";
+                case DataType.Length:
+                case DataType.Width:
+                    return $"{value} см";
                 default:
                     return value.ToString();
             }

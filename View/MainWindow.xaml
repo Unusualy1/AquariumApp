@@ -19,6 +19,7 @@
                 <tabs:HabitatConditionsTab/>
             </TabItem>
             <TabItem Header="Рыбы" FontFamily="Consolas" FontSize="16" Background="Snow">
+                <tabs:FishTab/>
             </TabItem>
             <TabItem Header="Виды рыб" FontFamily="Consolas" FontSize="16">
             </TabItem>

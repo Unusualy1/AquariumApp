@@ -18,8 +18,9 @@ public partial class FishSpecies : ObservableValidator
     /// <summary>
     /// Название вида рыбы
     /// </summary>
-    [MaxLength(100,
-        ErrorMessage = "Название вида рыбы не может превышать {1} символов")]
+    [Required]
+    [MaxLength(16, ErrorMessage = "Название вида рыбы не может превышать {1} символов")]
+    [NotifyDataErrorInfo]
     [ObservableProperty]
     private string _name = string.Empty;
 
@@ -27,8 +28,8 @@ public partial class FishSpecies : ObservableValidator
     /// Описание вида рыбы
     /// </summary>
     [AllowNull]
-    [MaxLength(3000,
-        ErrorMessage = "Описание вида рыбы не может превышать {1} символов")]
+    [MaxLength(256, ErrorMessage = "Описание вида рыбы не может превышать {1} символов")]
+    [NotifyDataErrorInfo]
     [ObservableProperty]
     private string _description = string.Empty;
 
@@ -36,8 +37,8 @@ public partial class FishSpecies : ObservableValidator
     /// Тип вида рыбы (например, хищник, травоядное)
     /// </summary>
     [AllowNull]
-    [MaxLength(100,
-        ErrorMessage = "Название типа рыбы не может превышать {1} символов")]
+    [MaxLength(16, ErrorMessage = "Название типа рыбы не может превышать {1} символов")]
+    [NotifyDataErrorInfo]
     [ObservableProperty]
     private string _type = string.Empty;
 
@@ -45,8 +46,8 @@ public partial class FishSpecies : ObservableValidator
     /// Место происхождения вида рыбы
     /// </summary>
     [AllowNull]
-    [MaxLength(200,
-        ErrorMessage = "Место происхождения вида рыбы не может превышать {1} символов")]
+    [MaxLength(32, ErrorMessage = "Место происхождения вида рыбы не может превышать {1} символов")]
+    [NotifyDataErrorInfo]
     [ObservableProperty]
     private string _origin = string.Empty;
 }

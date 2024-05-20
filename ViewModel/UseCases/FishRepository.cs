@@ -10,8 +10,8 @@ public class FishRepository : IFishRepository
     {
         using Context context = new();
 
-        context.Fishes.Add(fish);
-        await context.SaveChangesAsync();
+        await context.Fishes.AddAsync(fish);
+        context.SaveChanges();
     }
     public async Task Update(Fish fish)
     {
@@ -21,12 +21,16 @@ public class FishRepository : IFishRepository
         await context.SaveChangesAsync();
     }
 
-    public async Task Delete(Fish fish)
+    public async Task Delete(long id)
     {
         using Context context = new();
 
-        context.Fishes.Remove(fish);
-        await context.SaveChangesAsync();
+        Fish? findedFish = await context.Fishes.FindAsync(id);
+
+        if (findedFish == null) return;
+
+        context.Fishes.Remove(findedFish);
+        context.SaveChanges();
     }
 
     public List<Fish> GetAll()
