@@ -3,13 +3,8 @@ using System.Collections.ObjectModel;
 using ViewModel.Abstrations;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Model.Abstactions;
 using Model.DataAccess.Repositories;
-using Model.Factories;
-using System.Collections.ObjectModel;
-using System.Threading.Tasks;
 using ViewModel.UseCases;
-using ViewModel.UseCases.Events;
 
 namespace ViewModel;
 
@@ -26,7 +21,7 @@ public partial class FishEventsViewModel : BaseViewModel
     [RelayCommand]
     public void RefreshFishEvents()
     {
-        FishEvents = new ObservableCollection<FishEvent>(_fishEventRepository.GetAllByFishId(createdWindowFish.Id));
+        FishEvents = new ObservableCollection<FishEvent>(_fishEventRepository.GetAllByFishId(createdWindowFish!.Id));
     }
 
     public FishEventsViewModel(Fish fish)

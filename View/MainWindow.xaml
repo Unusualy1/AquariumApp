@@ -22,10 +22,13 @@
                 <tabs:FishTab/>
             </TabItem>
             <TabItem Header="Виды рыб" FontFamily="Consolas" FontSize="16">
+                <tabs:FishSpeciesTab/>
             </TabItem>
             <TabItem Header="Декорации" FontFamily="Consolas" FontSize="16">
+                <tabs:DecorationTab/>
             </TabItem>
             <TabItem Header="Растения" FontFamily="Consolas" FontSize="16">
+                <tabs:PlantTab/>
             </TabItem>
         </TabControl>
     </Grid>

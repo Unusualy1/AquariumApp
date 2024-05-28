@@ -4,13 +4,10 @@ using Model;
 using Model.DataAccess.Repositories;
 using ViewModel.Abstrations;
 using ViewModel.UseCases;
-using System.Windows;
 
 namespace ViewModel;
 
 using System.ComponentModel.DataAnnotations;
-using System.Threading.Tasks;
-using static System.Net.Mime.MediaTypeNames;
 
 public partial class HabitatConditionsViewModel : BaseViewModel
 {
