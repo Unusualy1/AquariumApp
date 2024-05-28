@@ -1,6 +1,7 @@
 ﻿using Model;
 using Model.DataAccess;
 using Model.DataAccess.Repositories;
+using System.Diagnostics;
 
 namespace ViewModel.UseCases;
 
@@ -39,7 +40,7 @@ public class DecorationEventRepository : IDecorationEventRepository
     public async Task Delete(long id)
     {
         using Context context = new();
-
+            
         DecorationEvent? findedDecorationEvent = await context.DecorationsEvents.FindAsync(id);
 
         if (findedDecorationEvent == null) return; 

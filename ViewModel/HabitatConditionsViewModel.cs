@@ -19,6 +19,26 @@ public partial class HabitatConditionsViewModel : BaseViewModel
     [ObservableProperty]
     private HabitatConditions? _editHabitatConditions;
 
+    [ObservableProperty]
+    public bool _isVisiblePrefactoryText = false;
+
+    [ObservableProperty]
+    public string _prefactoryText = string.Empty;
+
+    private void CheckConditions()
+    {
+        if (HabitatCondtitions == null) return;
+
+        if (HabitatCondtitions.WaterTemperature < 10 || HabitatCondtitions.WaterTemperature > 30)
+        {
+            IsVisiblePrefactoryText = true;
+            PrefactoryText = "Внимание! Неблагоприятная температура аквариума!";
+            return;
+        }
+
+        PrefactoryText = string.Empty;
+    }
+
     public HabitatConditionsViewModel()
     {
         LoadData();
@@ -28,6 +48,7 @@ public partial class HabitatConditionsViewModel : BaseViewModel
     {
         HabitatCondtitions = _habitatConditionRepository.Get();
         EditHabitatConditions = _habitatConditionRepository.Get();
+        CheckConditions();
     }
 
     private void CopyHabitatConditions()
@@ -41,6 +62,7 @@ public partial class HabitatConditionsViewModel : BaseViewModel
             HabitatCondtitions.OxygenLevel = EditHabitatConditions.OxygenLevel;
             HabitatCondtitions.Salinity = EditHabitatConditions.Salinity;
         }
+        CheckConditions();
     }
 
     [RelayCommand]

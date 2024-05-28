@@ -66,7 +66,6 @@ public class Context : DbContext
             Salinity = 0.0,
             Substrate = "Не указано"
         });
-
         modelBuilder.Entity<HabitatConditionsEvent>().HasData(EventFactory.CreateStandartHabitatConditionsEvent(1, EventType.Создание, 1));
 
         modelBuilder.Entity<FishSpecies>().HasData(new FishSpecies
@@ -77,7 +76,6 @@ public class Context : DbContext
             Origin = "Япония",
             Type = "Морская мирная"
         });
-
         modelBuilder.Entity<FishSpeciesEvent>().HasData(EventFactory.CreateStandartFishSpeciesEvent(1, EventType.Создание, 1));
 
         modelBuilder.Entity<Fish>().HasData(new Fish
@@ -91,8 +89,16 @@ public class Context : DbContext
             Width = 14,
             FishSpeciesId = 1
         });
-
         modelBuilder.Entity<FishEvent>().HasData(EventFactory.CreateStandartFishEvent(1, EventType.Создание, 1));
+
+        modelBuilder.Entity<Decoration>().HasData(new Decoration 
+        {
+            Id = 1,
+            Name = "Камень",
+            Description = "Камень",
+            Count = 8
+        });
+        modelBuilder.Entity<DecorationEvent>().HasData(EventFactory.CreateStandartDecorationEvent(1, EventType.Создание, 1));
     }
     
 }

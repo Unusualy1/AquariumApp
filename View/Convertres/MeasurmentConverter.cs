@@ -24,7 +24,9 @@ namespace View.Convertres
                     return $"{value} мг/л";
                 case DataType.Length:
                 case DataType.Width:
-                    return $"{value} см";
+                    return $"{value} см.";
+                case DataType.Quantity:
+                    return $"{value} шт.";
                 default:
                     return value.ToString();
             }

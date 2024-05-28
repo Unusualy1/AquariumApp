@@ -69,7 +69,7 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID" Binding="{Binding Id}"/>
                 <DataGridTextColumn Header="Название" Binding="{Binding Name}"/>
-                <DataGridTextColumn Header="Количество"  Binding="{Binding Type}"/>
+                <DataGridTextColumn Header="Количество"  Binding="{Binding Count, Converter={StaticResource MeasurmentConverter}, ConverterParameter=Quantity}"/>
                 <DataGridTextColumn Header="Описание" Binding="{Binding Description}"/>
             </DataGrid.Columns>
         </DataGrid>

@@ -8,5 +8,6 @@ public enum DataType
     AcidityLevel,
     SalinityLevel,
     Width,
-    Length
+    Length,
+    Quantity
 }
