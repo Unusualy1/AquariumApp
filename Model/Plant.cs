@@ -40,4 +40,11 @@ public partial class Plant : ObservableValidator
         ErrorMessage = "Значения для количества растений должно быть между {1} и {2}")]
     [ObservableProperty]
     private int _count;
+
+    /// <summary>
+    /// Эвенты растения
+    /// </summary>
+    [AllowNull]
+    [ObservableProperty]
+    private ICollection<PlantEvent> _plantEvents;
 }

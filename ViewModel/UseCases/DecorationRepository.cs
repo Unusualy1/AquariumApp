@@ -1,4 +1,5 @@
-﻿using Model;
+﻿using Microsoft.EntityFrameworkCore;
+using Model;
 using Model.DataAccess;
 using Model.DataAccess.Repositories;
 
@@ -33,9 +34,13 @@ public class DecorationRepository : IDecorationRepository
     {
         using Context context = new();
 
-        Decoration? findedDecoration = await context.Decorations.FindAsync(id);
+        Decoration? findedDecoration = await context.Decorations
+                                                    .Include(d => d.DecorationEvents)
+                                                    .FirstOrDefaultAsync(d => d.Id == id);
 
         if (findedDecoration == null) return;
+
+        context.DecorationsEvents.RemoveRange(findedDecoration.DecorationEvents);
 
         context.Decorations.Remove(findedDecoration);
         await context.SaveChangesAsync();

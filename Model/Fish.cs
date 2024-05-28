@@ -83,8 +83,6 @@ public partial class Fish : ObservableValidator
     [ForeignKey("FishSpeciesId")]
     public FishSpecies? FishSpecies { get; set; }
 
-    
-
     /// <summary>
     /// Эвенты рыбы
     /// </summary>

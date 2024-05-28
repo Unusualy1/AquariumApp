@@ -45,9 +45,12 @@ public class FishRepository : IFishRepository
     {
         using Context context = new();
 
-        Fish? findedFish = await context.Fishes.FindAsync(id);
-
+        Fish? findedFish = await context.Fishes
+                                        .Include(f => f.FishEvents)
+                                        .FirstOrDefaultAsync(f => f.Id == id);
         if (findedFish == null) return;
+
+        context.FishEvents.RemoveRange(findedFish.FishEvents);
 
         context.Fishes.Remove(findedFish);
         await context.SaveChangesAsync();

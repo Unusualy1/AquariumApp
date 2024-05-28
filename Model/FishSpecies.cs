@@ -50,4 +50,11 @@ public partial class FishSpecies : ObservableValidator
     [NotifyDataErrorInfo]
     [ObservableProperty]
     private string _origin = string.Empty;
+
+    /// <summary>
+    /// Эвенты вида рыбы
+    /// </summary>
+    [AllowNull]
+    [ObservableProperty]
+    private ICollection<FishSpeciesEvent> _fishSpeciesEvents;
 }

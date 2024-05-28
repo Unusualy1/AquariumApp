@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Model;
 
@@ -37,4 +38,11 @@ public partial class Decoration : ObservableValidator
         ErrorMessage = "Значения для длины должно быть между {1} и {2}.")]
     [ObservableProperty]
     private int _count;
+
+    /// <summary>
+    /// Эвенты рыбы
+    /// </summary>
+    [AllowNull]
+    [ObservableProperty]
+    private ICollection<DecorationEvent> _decorationEvents;
 }
