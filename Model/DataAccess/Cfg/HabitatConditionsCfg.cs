@@ -1,7 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
-using Model;
-using Model.Events;
 
 namespace Model.DataAccess.Cfg;
 

@@ -11,7 +11,6 @@ using Model.Factories;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using ViewModel.UseCases;
-using ViewModel.UseCases.Events;
 
 public partial class FishViewModel : BaseViewModel
 {
@@ -123,7 +122,7 @@ public partial class FishViewModel : BaseViewModel
             CurrentFish.FeedTime = DateTime.UtcNow;
             await _fishRepository.Update(CurrentFish);
 
-            await _fishEventRepository.Add(FishEventFactory.CreateStandartFishEvent(EventType.Кормление, CurrentFish.Id));
+            await _fishEventRepository.Add(EventFactory.CreateStandartFishEvent(EventType.Кормление, CurrentFish.Id));
         }
     }
 
@@ -159,7 +158,7 @@ public partial class FishViewModel : BaseViewModel
             await _fishRepository.Add(CurrentFish);
             Fishes.Add(CurrentFish);
 
-            await _fishEventRepository.Add(FishEventFactory.CreateStandartFishEvent(EventType.Создание, CurrentFish.Id));
+            await _fishEventRepository.Add(EventFactory.CreateStandartFishEvent(EventType.Создание, CurrentFish.Id));
         }
 
         if (_state == State.OnEdit)

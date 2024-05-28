@@ -67,13 +67,7 @@ public class Context : DbContext
             Substrate = "Не указано"
         });
 
-        modelBuilder.Entity<HabitatConditionsEvent>().HasData(new HabitatConditionsEvent
-        {
-            Id = 1,
-            Type = EventType.Создание,
-            Description = "Созданы начальные условия обитания",
-            HabitatConditionsId = 1,
-        });
+        modelBuilder.Entity<HabitatConditionsEvent>().HasData(EventFactory.CreateStandartHabitatConditionsEvent(1, EventType.Создание, 1));
 
         modelBuilder.Entity<FishSpecies>().HasData(new FishSpecies
         {
@@ -84,7 +78,7 @@ public class Context : DbContext
             Type = "Морская мирная"
         });
 
-        modelBuilder.Entity<FishSpeciesEvent>().HasData(FishSpeciesEventFactory.CreateStandartFishSpeciesEvent(1, EventType.Создание, 1));
+        modelBuilder.Entity<FishSpeciesEvent>().HasData(EventFactory.CreateStandartFishSpeciesEvent(1, EventType.Создание, 1));
 
         modelBuilder.Entity<Fish>().HasData(new Fish
         {
@@ -98,7 +92,7 @@ public class Context : DbContext
             FishSpeciesId = 1
         });
 
-        modelBuilder.Entity<FishEvent>().HasData(FishEventFactory.CreateStandartFishEvent(1, EventType.Создание, 1));
+        modelBuilder.Entity<FishEvent>().HasData(EventFactory.CreateStandartFishEvent(1, EventType.Создание, 1));
     }
     
 }
