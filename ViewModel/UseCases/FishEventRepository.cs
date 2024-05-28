@@ -1,8 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Model;
+﻿using Model;
 using Model.DataAccess;
 using Model.DataAccess.Repositories;
-using System.ComponentModel;
 
 namespace ViewModel.UseCases;
 
@@ -15,6 +13,13 @@ public class FishEventRepository : IFishEventRepository
         return [.. context.FishEvents];
     }
 
+    public List<FishEvent> GetAllByFishId(long fishId)
+    {
+        using Context context = new();
+
+        return [.. context.FishEvents.Where(fe => fe.FishId == fishId)];
+    }
+
     public async Task Add(FishEvent fishEvent)
     {
         using Context context = new();
@@ -23,26 +28,23 @@ public class FishEventRepository : IFishEventRepository
         await context.SaveChangesAsync();
     }
 
-    public async Task Delete(FishEvent fishEvent)
-    {
-        using Context context = new();
-
-        context.FishEvents.Remove(fishEvent);
-        await context.SaveChangesAsync();
-    }
-
     public async Task Update(FishEvent fishEvent)
     {
         using Context context = new();
 
-        context.Entry(fishEvent).State = EntityState.Modified;
+        context.FishEvents.Update(fishEvent);
         await context.SaveChangesAsync();
     }
 
-    public List<FishEvent> GetAllByFishId(long fishId)
+    public async Task Delete(long id)
     {
         using Context context = new();
 
-        return [.. context.FishEvents.Where(fe => fe.FishId == fishId)];
-    }
+        FishEvent? findedFishEvent = await context.FishEvents.FindAsync(id);
+
+        if (findedFishEvent == null) return;
+
+        context.FishEvents.Remove(findedFishEvent);
+        await context.SaveChangesAsync();
+    } 
 }

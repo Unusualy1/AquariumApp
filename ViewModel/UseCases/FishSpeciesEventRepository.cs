@@ -1,27 +1,51 @@
 ﻿using Model;
+using Model.DataAccess;
 using Model.DataAccess.Repositories;
 
 namespace ViewModel.UseCases;
 
 public class FishSpeciesEventRepository : IFishSpeciesEventRepository
 {
-    public Task Add(FishSpeciesEvent fishSpeciesEvent)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task Delete(FishSpeciesEvent fishSpeciesEvent)
-    {
-        throw new NotImplementedException();
-    }
-
     public List<FishSpeciesEvent> GetAll()
     {
-        throw new NotImplementedException();
+        using Context context = new();
+
+        return [.. context.FishSpeciesEvents];
     }
 
-    public Task Update(FishSpeciesEvent fishSpeciesEvent)
+    public List<FishSpeciesEvent> GetAllByFishSpeciesId(long fishSpeciesId)
     {
-        throw new NotImplementedException();
+        using Context context = new();
+
+        return [.. context.FishSpeciesEvents.Where(fse => fse.FishSpeciesId == fishSpeciesId)];
+    }
+
+    public async Task Add(FishSpeciesEvent fishSpeciesEvent)
+    {
+        using Context context = new();
+
+        context.FishSpeciesEvents.Add(fishSpeciesEvent);
+        await context.SaveChangesAsync();
+    }
+
+    public async Task Update(FishSpeciesEvent fishSpeciesEvent)
+    {
+        using Context context = new();
+
+        context.FishSpeciesEvents.Update(fishSpeciesEvent);
+        await context.SaveChangesAsync();
+    }
+
+    public async Task Delete(long id)
+    {
+        using Context context = new();
+
+        FishSpeciesEvent? findedFishSpeciesEvent = await context.FishSpeciesEvents.FindAsync(id);
+
+        if (findedFishSpeciesEvent == null) return;
+
+        context.FishSpeciesEvents.Remove(findedFishSpeciesEvent);
+        await context.SaveChangesAsync();
+
     }
 }

@@ -8,5 +8,5 @@ public interface IHabitatConditionsEventRepository
 
     public Task Update(HabitatConditionsEvent habitatConditionsEvent);
 
-    public Task Delete(HabitatConditionsEvent habitatConditionsEvent);
+    public Task Delete(long id);
 }

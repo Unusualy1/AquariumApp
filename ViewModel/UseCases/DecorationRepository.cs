@@ -6,6 +6,13 @@ namespace ViewModel.UseCases;
 
 public class DecorationRepository : IDecorationRepository
 {
+    public List<Decoration> GetAll()
+    {
+        using Context context = new();
+
+        return [.. context.Decorations];
+    }
+
     public async Task Add(Decoration decoration)
     {
         using Context context = new();
@@ -22,20 +29,15 @@ public class DecorationRepository : IDecorationRepository
         await context.SaveChangesAsync();
     }
 
-    public async Task Delete(Decoration decoration)
+    public async Task Delete(long id)
     {
         using Context context = new();
 
-        context.Decorations.Remove(decoration);
+        Decoration? findedDecoration = await context.Decorations.FindAsync(id);
+
+        if (findedDecoration == null) return;
+
+        context.Decorations.Remove(findedDecoration);
         await context.SaveChangesAsync();
     }
-
-    public List<Decoration> GetAll()
-    {
-        using Context context = new();
-
-        return [.. context.Decorations];
-    }
-
-    
 }

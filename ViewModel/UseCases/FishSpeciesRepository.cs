@@ -6,6 +6,13 @@ namespace ViewModel.UseCases;
 
 public class FishSpeciesRepository : IFishSpeciesRepository
 {
+    public List<FishSpecies> GetAll()
+    {
+        using Context context = new();
+
+        return [.. context.FishSpecies];
+    }
+
     public async Task Add(FishSpecies fishSpecies)
     {
         using Context context = new();
@@ -22,18 +29,15 @@ public class FishSpeciesRepository : IFishSpeciesRepository
         await context.SaveChangesAsync();
     }
 
-    public async Task Delete(FishSpecies fishSpecies)
+    public async Task Delete(long id)
     {
         using Context context = new();
 
-        context.FishSpecies.Remove(fishSpecies);
+        FishSpecies? findedFishSpecies = await context.FishSpecies.FindAsync(id);
+
+        if (findedFishSpecies == null) return;
+
+        context.FishSpecies.Remove(findedFishSpecies);
         await context.SaveChangesAsync();
-    }
-
-    public List<FishSpecies> GetAll()
-    {
-        using Context context = new();
-
-        return [.. context.FishSpecies];
     }
 }
