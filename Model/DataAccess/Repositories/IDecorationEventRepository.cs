@@ -1,4 +1,4 @@
-﻿namespace Model.DataAccess.Repositories.Events;
+﻿namespace Model.DataAccess.Repositories;
 
 public interface IDecorationEventRepository
 {

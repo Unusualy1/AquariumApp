@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Model;
 using Model.DataAccess;
-using Model.DataAccess.Repositories.Events;
+using Model.DataAccess.Repositories;
 using System.ComponentModel;
 
 namespace ViewModel.UseCases;

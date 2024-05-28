@@ -5,7 +5,6 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Model.Abstactions;
 using Model.DataAccess.Repositories;
-using Model.DataAccess.Repositories.Events;
 using Model.Factories;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;

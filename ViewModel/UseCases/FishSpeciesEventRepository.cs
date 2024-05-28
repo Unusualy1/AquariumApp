@@ -1,5 +1,5 @@
 ﻿using Model;
-using Model.DataAccess.Repositories.Events;
+using Model.DataAccess.Repositories;
 
 namespace ViewModel.UseCases;
 
