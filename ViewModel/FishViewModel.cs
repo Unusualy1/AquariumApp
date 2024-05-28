@@ -9,6 +9,7 @@ using Model.Abstactions;
 using Model.DataAccess.Repositories;
 using Model.Factories;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Threading.Tasks;
 using ViewModel.UseCases;
 
@@ -58,7 +59,15 @@ public partial class FishViewModel : BaseViewModel
         ShowFishEventsCommand.NotifyCanExecuteChanged();
 
         CurrentFish.ErrorsChanged += CurrentFish_ErrorsChanged;
+        CurrentFish.PropertyChanged += CurrentFish_PropertyChanged;
 
+    }
+    private void CurrentFish_PropertyChanged(object? sender, PropertyChangedEventArgs e)
+    {
+        if (e.PropertyName == nameof(CurrentFish.Name))
+        {
+            ApplyFishCommand.NotifyCanExecuteChanged();
+        }
     }
 
     private void CurrentFish_ErrorsChanged(object? sender, System.ComponentModel.DataErrorsChangedEventArgs e)
@@ -68,16 +77,16 @@ public partial class FishViewModel : BaseViewModel
 
     private bool ValidateCurrentFish()
     {
-        if (CurrentFish == null) { return false; }
+        if (CurrentFish == null || CurrentFish.Name.Length < 1) { return false; }
 
-        return !CurrentFish.HasErrors && SelectedFishSpecies != null ;
+        return (!CurrentFish.HasErrors && SelectedFishSpecies != null) ;
     }
-
 
     private bool FishNotNull()
     {
         return CurrentFish != null;
     }
+    
     private bool FishesIsExist()
     {
         return Fishes.Count != 0;
@@ -155,6 +164,7 @@ public partial class FishViewModel : BaseViewModel
         if (_state == State.OnAdd)
         {
             CurrentFish.FishSpeciesId = SelectedFishSpecies?.Id;
+            CurrentFish.FishSpecies = SelectedFishSpecies;
             await _fishRepository.Add(CurrentFish);
             Fishes.Add(CurrentFish);
 
@@ -164,6 +174,7 @@ public partial class FishViewModel : BaseViewModel
         if (_state == State.OnEdit)
         {
             await _fishRepository.Update(CurrentFish);
+            await _fishEventRepository.Add(EventFactory.CreateStandartFishEvent(EventType.Редактирование, CurrentFish.Id));
         }
 
         SwapState(State.OnDefault);
