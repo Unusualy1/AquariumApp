@@ -20,5 +20,10 @@ namespace View.Tabs
 
             DataContext = _viewModel;
         }
+
+        public void OpenNewDecorationEventsWindow_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
     }
 }

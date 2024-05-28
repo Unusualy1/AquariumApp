@@ -14,6 +14,12 @@ public class DecorationRepository : IDecorationRepository
         return [.. context.Decorations];
     }
 
+    public async Task<Decoration?> GetById(long id)
+    {
+        using Context context = new();
+        return await context.Decorations.FindAsync(id);
+    }
+
     public async Task Add(Decoration decoration)
     {
         using Context context = new();

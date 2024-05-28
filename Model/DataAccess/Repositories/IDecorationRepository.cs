@@ -2,7 +2,9 @@
 
 public interface IDecorationRepository
 {
-    public List<Decoration> GetAll(); 
+    public List<Decoration> GetAll();
+
+    public Task<Decoration> GetById(long id);
 
     public Task Add(Decoration decoration); 
 

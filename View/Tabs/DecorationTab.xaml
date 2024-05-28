@@ -42,22 +42,22 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Margin ="10 3 10 3" Content="Добавить"  Command="{Binding AddFishSpeciesCommand}" Background="White" BorderBrush="Black"/>
-            <Button Grid.Column="1" Margin ="10 3 10 3" Content="Изменить" Command="{Binding EditFishSpeciesCommand}" Background="White" BorderBrush="Black"/>
-            <Button Grid.Column="2" Margin ="10 3 10 3" Content="Удалить" Command="{Binding DeleteFishSpeciesCommand}" Background="White" BorderBrush="Black"/>
+            <Button Grid.Column="0" Margin ="10 3 10 3" Content="Добавить"  Command="{Binding AddDecorationCommand}" Background="White" BorderBrush="Black"/>
+            <Button Grid.Column="1" Margin ="10 3 10 3" Content="Изменить" Command="{Binding EditDecorationCommand}" Background="White" BorderBrush="Black"/>
+            <Button Grid.Column="2" Margin ="10 3 10 3" Content="Удалить" Command="{Binding DeleteDecorationCommand}" Background="White" BorderBrush="Black"/>
         </Grid>
         <Grid Grid.Row="2" Grid.Column="0" Height="30" Margin="0 0 0 0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Margin ="10 3 10 3" Click = "OpenNewFishSpeciesEventsWindow_Click" Content="Посмотреть события" Command="{Binding ShowFishSpeciesEventsCommand}" Background="White" BorderBrush="Black"/>
+            <Button Grid.Column="0" Margin ="10 3 10 3" Click = "OpenNewDecorationEventsWindow_Click" Content="Посмотреть события" Command="{Binding ShowDecorationEventsCommand}" Background="White" BorderBrush="Black"/>
         </Grid>
         <DataGrid Grid.Row="1" Grid.Column="0"
-        ItemsSource="{Binding FishSpecies}"
+        ItemsSource="{Binding Decorations}"
         Margin="0 0 0 0"
         IsReadOnly="True"
         IsEnabled="{Binding IsEnabledDataGrid}"
-        SelectedItem="{Binding CurrentFishSpecies}"
+        SelectedItem="{Binding CurrentDecoration}"
         AutoGenerateColumns="False"
               
         ColumnHeaderStyle= "{StaticResource CenterAlignedColumnHeader}"
@@ -69,46 +69,39 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID" Binding="{Binding Id}"/>
                 <DataGridTextColumn Header="Название" Binding="{Binding Name}"/>
-                <DataGridTextColumn Header="Тип вида"  Binding="{Binding Type}"/>
-                <DataGridTextColumn Header="Место происхождения" Binding="{Binding Origin}"/>
+                <DataGridTextColumn Header="Количество"  Binding="{Binding Type}"/>
                 <DataGridTextColumn Header="Описание" Binding="{Binding Description}"/>
             </DataGrid.Columns>
         </DataGrid>
 
         <GridSplitter Grid.Column="1" Grid.Row="1" ShowsPreview="False" Width="3"
            HorizontalAlignment="Center" VerticalAlignment="Stretch" />
-        <Grid Grid.Column="2" Grid.Row="1" IsEnabled="{Binding IsEnabledFishSpeciesInfo}">
+        <Grid Grid.Column="2" Grid.Row="1" IsEnabled="{Binding IsEnabledDecorationInfo}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <StackPanel Grid.Column="0">
                 <StackPanel>
                     <Label Content="Уникальный индетификатор" />
-                    <TextBox Text="{Binding CurrentFishSpecies.Id, Mode=OneWay}"
+                    <TextBox Text="{Binding CurrentDecoration.Id, Mode=OneWay}"
                   Margin="5 0"
                   IsReadOnly="True"/>
                 </StackPanel>
                 <StackPanel>
-                    <Label Content="Название вида рыбы" />
-                    <TextBox Text="{Binding CurrentFishSpecies.Name , Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    <Label Content="Название декорации" />
+                    <TextBox Text="{Binding CurrentDecoration.Name , Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                   Style="{StaticResource errorTextStyle}"
                   Margin="5 0"/>
                 </StackPanel>
                 <StackPanel>
-                    <Label Content="Тип вида рыбы (например, хищник, травоядное)" />
-                    <TextBox Text="{Binding CurrentFishSpecies.Type, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                  Style="{StaticResource errorTextStyle}"
-                  Margin="5 0"/>
-                </StackPanel>
-                <StackPanel>
-                    <Label Content="Место происхождения рыбы" />
-                    <TextBox Text="{Binding CurrentFishSpecies.Origin, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    <Label Content="Количество в аквариуме" />
+                    <TextBox Text="{Binding CurrentDecoration.Count, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                   Style="{StaticResource errorTextStyle}"
                   Margin="5 0"/>
                 </StackPanel>
                 <StackPanel>
                     <Label Content="Описание" />
-                    <TextBox Text="{Binding CurrentFishSpecies.Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    <TextBox Text="{Binding CurrentDecoration.Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                   Style="{StaticResource errorTextStyle}"
                   TextWrapping="Wrap"
                   Margin="5 0"
@@ -120,8 +113,8 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <Button Grid.Column = "0" Content="Принять" Width="100" HorizontalAlignment="Center" Background="DarkSeaGreen" Command="{Binding ApplyFishSpeciesCommand}"/>
-                    <Button Grid.Column = "1" Content="Отменить" Width="100" HorizontalAlignment="Center" Background="IndianRed" Command="{Binding CancelFishSpeciesCommand}"/>
+                    <Button Grid.Column = "0" Content="Принять" Width="100" HorizontalAlignment="Center" Background="DarkSeaGreen" Command="{Binding ApplyDecorationCommand}"/>
+                    <Button Grid.Column = "1" Content="Отменить" Width="100" HorizontalAlignment="Center" Background="IndianRed" Command="{Binding CancelDecorationCommand}"/>
                 </Grid>
             </StackPanel>
         </Grid>
