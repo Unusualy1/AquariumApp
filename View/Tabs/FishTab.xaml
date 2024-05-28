@@ -21,11 +21,10 @@
             <Setter Property="TextBlock.TextAlignment" Value="Center" />
         </Style>
         <Style x:Key="CenterAlignedColumnHeader" TargetType="DataGridColumnHeader">
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
             <Setter Property="Background" Value="Snow" />
             <Setter Property="BorderBrush" Value="Black" />
-            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="BorderThickness" Value="0.75" />
         </Style>
     </UserControl.Resources>
     <Grid>
@@ -37,36 +36,51 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
-        <Grid  Height="30">
+
+        <Grid Height="30" Margin="0 0 0 0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Content="Добавить"  Command="{Binding AddFishCommand}" Background="White" BorderBrush="Black"/>
-            <Button Grid.Column="1" Content="Изменить" Command="{Binding EditFishCommand}" Background="White" BorderBrush="Black"/>
-            <Button Grid.Column="2" Content="Удалить" Command="{Binding DeleteFishCommand}" Background="White" BorderBrush="Black"/>
+            <Button Grid.Column="0" Margin ="10 3 10 3" Content="Добавить"  Command="{Binding AddFishCommand}" Background="White" BorderBrush="Black"/>
+            <Button Grid.Column="1" Margin ="10 3 10 3" Content="Изменить" Command="{Binding EditFishCommand}" Background="White" BorderBrush="Black"/>
+            <Button Grid.Column="2" Margin ="10 3 10 3" Content="Удалить" Command="{Binding DeleteFishCommand}" Background="White" BorderBrush="Black"/>
+        </Grid>
+        <Grid Grid.Row="2" Grid.Column="0" Height="30" Margin="0 0 0 0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Margin ="10 3 10 3" Content="Покормить"  Command="{Binding FeedFishCommand}" Background="White" BorderBrush="Black"/>
+            <Button Grid.Column="1" Margin ="10 3 10 3" Click = "OpenNewFishEventsWindow_Click" Content="Посмотреть события" Command="{Binding ShowFishEventsCommand}" Background="White" BorderBrush="Black"/>
         </Grid>
         <DataGrid Grid.Row="1" Grid.Column="0"
-            ItemsSource="{Binding Fishes}" 
+            ItemsSource="{Binding Fishes}"
+            Margin="0 0 0 0"
             IsReadOnly="True"
             IsEnabled="{Binding IsEnabledDataGrid}"
             SelectedItem="{Binding CurrentFish}"
+            AutoGenerateColumns="False"
                   
             ColumnHeaderStyle= "{StaticResource CenterAlignedColumnHeader}"
-            ColumnWidth="100"
+            ColumnWidth="150"
+            
             CellStyle = "{StaticResource CenterAlignedCellStyle}">
             
+            
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Уникальный ID" Binding="{Binding Id}"/>
+                <DataGridTextColumn Header="ID" Binding="{Binding Id}"/>
                 <DataGridTextColumn Header="Имя" Binding="{Binding Name}"/>
                 <DataGridTextColumn Header="Ширина"  Binding="{Binding Width, Converter={StaticResource MeasurmentConverter}, ConverterParameter=Width}"/>
                 <DataGridTextColumn Header="Длина" Binding="{Binding Length, Converter={StaticResource MeasurmentConverter}, ConverterParameter=Length}"/>
                 <DataGridTextColumn Header="Цвет" Binding="{Binding Color}"/>
                 <DataGridTextColumn Header="Диета" Binding="{Binding Diet}"/>
                 <DataGridTextColumn Header="Среда обитания" Binding="{Binding Habitat}"/>
-                <DataGridTextColumn Header="Название вида рыбы" Binding="{Binding Species.Name}"/>
+                <DataGridTextColumn Header="Покормлена" Binding="{Binding FeedTime}"/>
+                <DataGridTextColumn Header="Вид рыбы" Binding="{Binding FishSpecies.Name}"/>
             </DataGrid.Columns>
         </DataGrid>
         
@@ -136,7 +150,7 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <Button Grid.Column = "0" Content="Принять" Width="100" HorizontalAlignment="Center" Background="DarkSeaGreen" Command="{Binding ApplyFishCommand}"/>
-                    <Button Grid.Column = "1" Content="Отменить" Width="100" HorizontalAlignment="Center" Background="IndianRed" Command="{Binding CancelStudentCommand}"/>
+                    <Button Grid.Column = "1" Content="Отменить" Width="100" HorizontalAlignment="Center" Background="IndianRed" Command="{Binding CancelFishCommand}"/>
                 </Grid>
             </StackPanel>
             

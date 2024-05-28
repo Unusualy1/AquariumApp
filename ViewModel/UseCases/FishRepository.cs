@@ -1,4 +1,5 @@
-﻿using Model;
+﻿using Microsoft.EntityFrameworkCore;
+using Model;
 using Model.DataAccess;
 using Model.DataAccess.Repositories;
 
@@ -6,9 +7,20 @@ namespace ViewModel.UseCases;
 
 public class FishRepository : IFishRepository
 {
+    public async Task<Fish?> GetById(long id)
+    {
+        using Context context = new();
+        return await context.Fishes.FindAsync(id);
+    }
+
     public async Task Add(Fish fish)
     {
         using Context context = new();
+
+        if (fish.FishSpecies != null)
+        {
+            context.Attach(fish.FishSpecies);
+        }
 
         await context.Fishes.AddAsync(fish);
         context.SaveChanges();
@@ -37,6 +49,6 @@ public class FishRepository : IFishRepository
     {
         using Context context = new();
 
-        return [.. context.Fishes];
+        return [.. context.Fishes.Include(f => f.FishSpecies)];
     }
 }

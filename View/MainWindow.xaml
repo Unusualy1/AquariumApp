@@ -10,7 +10,7 @@
         MinHeight="550" 
         Height="600" 
         Width="850"
-        ResizeMode="NoResize"
+        ResizeMode="CanResizeWithGrip"
         WindowStartupLocation="CenterScreen">
     
     <Grid>

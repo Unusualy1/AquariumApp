@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using View.Tabs.HabitatConditions;
+using View.Windows;
 using ViewModel;
 
 namespace View.Tabs
@@ -22,7 +23,7 @@ namespace View.Tabs
 
         private void OpenHabitatConditionsEditWindowButton_Click(object sender, RoutedEventArgs e)
         {
-            HabitatConditionsEditWindow editWindow = new HabitatConditionsEditWindow
+            HabitatConditionsEditWindow editWindow = new()
             {
                 DataContext = _viewModel,
                 Owner = Application.Current.MainWindow
@@ -30,6 +31,17 @@ namespace View.Tabs
 
             editWindow.WindowStartupLocation = WindowStartupLocation.CenterOwner;
             editWindow.ShowDialog();
+        }
+        private void OpenHabitatConditionsEventsButton_Click(object sender,  EventArgs e)
+        {
+            HabitatConditionsEventsWindow habitatConditionsEventsWindow = new()
+            {
+                DataContext = _viewModel,
+                Owner = Application.Current.MainWindow
+            };
+
+            habitatConditionsEventsWindow.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            habitatConditionsEventsWindow.ShowDialog();
         }
     }
 }

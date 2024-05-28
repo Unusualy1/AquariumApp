@@ -5,14 +5,19 @@ namespace ViewModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Model;
+using Model.Abstactions;
 using Model.DataAccess.Repositories;
+using Model.DataAccess.Repositories.Events;
+using Model.Factories;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using ViewModel.UseCases;
+using ViewModel.UseCases.Events;
 
 public partial class FishViewModel : BaseViewModel
 {
     private readonly IFishRepository _fishRepository = new FishRepository();
+    private readonly IFishEventRepository _fishEventRepository = new FishEventRepository();
     private readonly IFishSpeciesRepository _fishSpeciesRepository = new FishSpeciesRepository();
 
     private State _state = State.OnDefault;
@@ -32,13 +37,44 @@ public partial class FishViewModel : BaseViewModel
     [ObservableProperty]
     private FishSpecies? _selectedFishSpecies = null;
 
+    partial void OnSelectedFishSpeciesChanged(FishSpecies? value)
+    {
+        ApplyFishCommand.NotifyCanExecuteChanged();
+    }
+
     [ObservableProperty]
     private Fish? _currentFish = null;
 
     partial void OnCurrentFishChanged(Fish? value)
     {
+        if (CurrentFish == null)
+        {
+            EditFishCommand.NotifyCanExecuteChanged();
+            FeedFishCommand.NotifyCanExecuteChanged();
+            ShowFishEventsCommand.NotifyCanExecuteChanged();
+            return;
+        }
+
         EditFishCommand.NotifyCanExecuteChanged();
+        FeedFishCommand.NotifyCanExecuteChanged();
+        ShowFishEventsCommand.NotifyCanExecuteChanged();
+
+        CurrentFish.ErrorsChanged += CurrentFish_ErrorsChanged;
+
     }
+
+    private void CurrentFish_ErrorsChanged(object? sender, System.ComponentModel.DataErrorsChangedEventArgs e)
+    {
+        ApplyFishCommand.NotifyCanExecuteChanged();
+    }
+
+    private bool ValidateCurrentFish()
+    {
+        if (CurrentFish == null) { return false; }
+
+        return !CurrentFish.HasErrors && SelectedFishSpecies != null ;
+    }
+
 
     private bool FishNotNull()
     {
@@ -56,24 +92,46 @@ public partial class FishViewModel : BaseViewModel
         _state = state;
     }
 
+    public FishEventsViewModel CreateFishEventsViewModel()
+    {
+        return new FishEventsViewModel(CurrentFish!);
+    }
+
     [RelayCommand]
     public void AddFish()
     {
         SwapState(State.OnAdd);
         CurrentFish = new()
         {
-            Id = Fishes.Count + 1
+            Id = Fishes.Count + 1,
+            FishSpecies = SelectedFishSpecies
             
         };
         ApplyFishCommand.NotifyCanExecuteChanged();
-        
-
     }
 
     [RelayCommand(CanExecute = nameof(FishNotNull))]
     public void EditFish()
     {
         SwapState(State.OnEdit);
+    }
+
+    [RelayCommand(CanExecute = nameof(FishNotNull))]
+    public async void FeedFish()
+    {
+        if (CurrentFish != null)
+        {
+            CurrentFish.FeedTime = DateTime.UtcNow;
+            await _fishRepository.Update(CurrentFish);
+
+            await _fishEventRepository.Add(FishEventFactory.CreateStandartFishEvent(EventType.Кормление, CurrentFish.Id));
+        }
+    }
+
+    [RelayCommand(CanExecute = nameof(FishNotNull))]
+    public void ShowFishEvents()
+    {
+        
     }
 
     [RelayCommand(CanExecute = nameof(FishesIsExist))]
@@ -91,15 +149,18 @@ public partial class FishViewModel : BaseViewModel
         DeleteFishCommand.NotifyCanExecuteChanged();
     }
 
-    [RelayCommand()]
+    [RelayCommand(CanExecute = nameof(ValidateCurrentFish))]
     public async Task ApplyFish()
     {
         if (CurrentFish == null) return;
 
         if (_state == State.OnAdd)
         {
+            CurrentFish.FishSpeciesId = SelectedFishSpecies?.Id;
             await _fishRepository.Add(CurrentFish);
             Fishes.Add(CurrentFish);
+
+            await _fishEventRepository.Add(FishEventFactory.CreateStandartFishEvent(EventType.Создание, CurrentFish.Id));
         }
 
         if (_state == State.OnEdit)
@@ -111,8 +172,36 @@ public partial class FishViewModel : BaseViewModel
         CurrentFish = null;
 
         DeleteFishCommand.NotifyCanExecuteChanged();
+        RefreshFishesCommand.Execute(null);
     }
-    [RelayCommand()]
+
+    [RelayCommand]
+    public async Task CancelFish()
+    {
+        if (_state == State.OnAdd)
+        {
+            CurrentFish = null;
+            SwapState(State.OnDefault);
+            return;
+        }
+
+        if (_state == State.OnEdit)
+        {
+            if (CurrentFish == null) return;
+
+            Fish? fishCopy = await _fishRepository.GetById(CurrentFish.Id);
+
+            int index = Fishes.IndexOf(CurrentFish);
+
+            if (index == -1 || fishCopy == null) return;
+
+            CurrentFish = null;
+            Fishes[index] = fishCopy;
+            SwapState(State.OnDefault);
+        }
+    }
+
+    [RelayCommand]
     public void RefreshFishes()
     {
         Fishes = new ObservableCollection<Fish>(_fishRepository.GetAll());

@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using View.Windows;
 using ViewModel;
 
 namespace View.Tabs;
@@ -31,9 +32,17 @@ public partial class FishTab : UserControl
 
         DataContext = _viewModel;
     }
-
-    private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    public void OpenNewFishEventsWindow_Click(object sender, RoutedEventArgs e)
     {
+        var windowViewModel = _viewModel.CreateFishEventsViewModel();
 
+        FishEventsWindow fishEventsWindow = new()
+        {
+            DataContext = windowViewModel,
+            Owner = Application.Current.MainWindow
+        };
+
+        fishEventsWindow.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+        fishEventsWindow.ShowDialog();
     }
 }

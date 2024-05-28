@@ -2,7 +2,7 @@
 
 namespace Model.DataAccess.Repositories.Events;
 
-public interface IFishEventRepostiry
+public interface IFishEventRepository
 {
     public List<FishEvent> GetAll();
 
@@ -11,4 +11,7 @@ public interface IFishEventRepostiry
     public Task Update(FishEvent fishEvent);
 
     public Task Delete(FishEvent fishEvent);
+
+    public List<FishEvent> GetAllByFishId(long fishId);
+
 }

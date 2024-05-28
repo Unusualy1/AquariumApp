@@ -11,8 +11,7 @@ public class HabitatConditionsRepository : IHabitatConditionRepository
     {
         using Context context = new();
 
-        var existingHabitatConditions = context.HabitatConditions.First() ?? throw new ArgumentNullException();
-        return existingHabitatConditions;
+        return context.HabitatConditions.Include(hc => hc.HabitatConditionsEvents).First() ?? throw new ArgumentNullException();
     }
 
     public async Task Update(HabitatConditions habitatConditions)

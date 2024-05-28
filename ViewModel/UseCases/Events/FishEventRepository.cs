@@ -1,27 +1,48 @@
-﻿using Model.DataAccess.Repositories.Events;
+﻿using Microsoft.EntityFrameworkCore;
+using Model.DataAccess;
+using Model.DataAccess.Repositories.Events;
 using Model.Events;
+using System.ComponentModel;
 
 namespace ViewModel.UseCases.Events;
 
-public class FishEventRepository : IFishEventRepostiry
+public class FishEventRepository : IFishEventRepository
 {
-    public Task Add(FishEvent fishEvent)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task Delete(FishEvent fishEvent)
-    {
-        throw new NotImplementedException();
-    }
-
     public List<FishEvent> GetAll()
     {
-        throw new NotImplementedException();
+        using Context context = new();
+
+        return [.. context.FishEvents];
     }
 
-    public Task Update(FishEvent fishEvent)
+    public async Task Add(FishEvent fishEvent)
     {
-        throw new NotImplementedException();
+        using Context context = new();
+
+        context.FishEvents.Add(fishEvent);
+        await context.SaveChangesAsync();
+    }
+
+    public async Task Delete(FishEvent fishEvent)
+    {
+        using Context context = new();
+
+        context.FishEvents.Remove(fishEvent);
+        await context.SaveChangesAsync();
+    }
+
+    public async Task Update(FishEvent fishEvent)
+    {
+        using Context context = new();
+
+        context.Entry(fishEvent).State = EntityState.Modified;
+        await context.SaveChangesAsync();
+    }
+
+    public List<FishEvent> GetAllByFishId(long fishId)
+    {
+        using Context context = new();
+
+        return [.. context.FishEvents.Where(fe => fe.FishId == fishId)];
     }
 }
