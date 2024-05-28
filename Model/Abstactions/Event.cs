@@ -5,7 +5,7 @@ namespace Model.Abstactions;
 /// <summary>
 /// Модель события
 /// </summary>
-public partial class Event : ObservableValidator
+public abstract partial class Event : ObservableValidator
 {
     /// <summary>
     /// Уникальный идентификатор события
@@ -17,11 +17,14 @@ public partial class Event : ObservableValidator
     /// Тип события
     /// </summary>
     [ObservableProperty]
-    private string _type = string.Empty;
+    private EventType _type;
 
     /// <summary>
     /// Описания события
     /// </summary>
     [ObservableProperty]
     private string _description = string.Empty;
+
+    [ObservableProperty]
+    private DateTime _createdAt = DateTime.UtcNow;
 }

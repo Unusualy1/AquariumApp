@@ -1,10 +1,12 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using Model.Abstactions;
+﻿using Model.Abstactions;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Model.Events;
 
 public partial class FishEvent : Event
 {
-    [ObservableProperty]
-    private long fishId;
+    public long? FishId { get; set; }
+
+    [ForeignKey(nameof(FishId))]
+    public Fish? Fish {  get; set; } 
 }

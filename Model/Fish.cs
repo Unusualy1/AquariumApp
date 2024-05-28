@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using Model.Events;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
@@ -70,10 +71,25 @@ public partial class Fish : ObservableValidator
     private string _habitat = string.Empty;
 
     /// <summary>
+    /// Время кормежки рыбы 
+    /// </summary>
+    [AllowNull]
+    [ObservableProperty]
+    private DateTime _feedTime = DateTime.UtcNow;
+
+    /// <summary>
     /// Вид рыбы
     /// </summary>
     public long? FishSpeciesId { get; set; }
-
     [ForeignKey("FishSpeciesId")]
     public FishSpecies? FishSpecies { get; set; }
+
+    
+
+    /// <summary>
+    /// Эвенты рыбы
+    /// </summary>
+    [AllowNull]
+    [ObservableProperty]
+    private ICollection<FishEvent> _fishEvents;
 }

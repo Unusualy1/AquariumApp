@@ -1,10 +1,13 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using Model.Abstactions;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Model.Events;
 
 public partial class PlantEvent : Event
 {
-    [ObservableProperty]
-    private long plantId;
+    public long PlantId { get; set; }
+
+    [ForeignKey(nameof(PlantId))]
+    public Plant? Plant { get; set; }
 }

@@ -1,6 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using Microsoft.EntityFrameworkCore;
+using Model.Events;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Model;
 
@@ -61,4 +63,8 @@ public partial class HabitatConditions : ObservableValidator
     [NotifyDataErrorInfo]
     [ObservableProperty] 
     private double _salinity;
+
+    [AllowNull]
+    [ObservableProperty]
+    private ICollection<HabitatConditionsEvent> _habitatConditionsEvents;
 }
