@@ -3,20 +3,20 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Model.DataAccess.Cfg;
 
-public class PlantCfg : IEntityTypeConfiguration<Plant>
+public class DecorationCfg : IEntityTypeConfiguration<Decoration>
 {
-    public void Configure(EntityTypeBuilder<Plant> builder)
+    public void Configure(EntityTypeBuilder<Decoration> builder)
     {
-
-        builder.Property(p => p.Name)
+        builder.Property(d => d.Name)
             .HasMaxLength(100)
             .IsRequired();
 
-        builder.Property(p => p.Description)
+        builder.Property(d => d.Description)
             .HasMaxLength(200);
 
-        builder.Property(p => p.Count)
+        builder.Property(d => d.Count)
             .IsRequired()
             .HasAnnotation("Range", new { Min = 0, Max = int.MaxValue });
     }
 }
+

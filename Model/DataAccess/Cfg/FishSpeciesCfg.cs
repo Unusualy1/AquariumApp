@@ -7,6 +7,17 @@ public class FishSpeciesCfg : IEntityTypeConfiguration<FishSpecies>
 {
     public void Configure(EntityTypeBuilder<FishSpecies> builder)
     {
-        throw new NotImplementedException();
+        builder.Property(fs => fs.Name)
+            .IsRequired()
+            .HasMaxLength(16);
+
+        builder.Property(fs => fs.Description)
+            .HasMaxLength(256);
+
+        builder.Property(fs => fs.Type)
+            .HasMaxLength(16);
+
+        builder.Property(fs => fs.Origin)
+            .HasMaxLength(32);
     }
 }
