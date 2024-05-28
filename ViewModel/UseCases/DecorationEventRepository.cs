@@ -1,7 +1,7 @@
-﻿using Model.DataAccess.Repositories.Events;
-using Model.Events;
+﻿using Model;
+using Model.DataAccess.Repositories.Events;
 
-namespace ViewModel.UseCases.Events;
+namespace ViewModel.UseCases;
 
 public class DecorationEventRepository : IDecorationEventRepository
 {

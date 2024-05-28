@@ -1,10 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Model;
 using Model.DataAccess;
 using Model.DataAccess.Repositories.Events;
-using Model.Events;
 using System.ComponentModel;
 
-namespace ViewModel.UseCases.Events;
+namespace ViewModel.UseCases;
 
 public class FishEventRepository : IFishEventRepository
 {

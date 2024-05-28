@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Model.Abstactions;
 using Model.DataAccess.Cfg;
-using Model.Events;
 using Model.Factories;
 
 namespace Model.DataAccess;

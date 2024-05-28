@@ -3,7 +3,6 @@ using System.Collections.ObjectModel;
 using ViewModel.Abstrations;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Model;
 using Model.Abstactions;
 using Model.DataAccess.Repositories;
 using Model.DataAccess.Repositories.Events;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using ViewModel.UseCases;
 using ViewModel.UseCases.Events;
-using Model.Events;
 
 namespace ViewModel;
 

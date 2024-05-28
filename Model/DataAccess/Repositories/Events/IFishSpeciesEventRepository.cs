@@ -1,6 +1,4 @@
-﻿using Model.Events;
-
-namespace Model.DataAccess.Repositories.Events;
+﻿namespace Model.DataAccess.Repositories.Events;
 
 public interface IFishSpeciesEventRepository
 {
