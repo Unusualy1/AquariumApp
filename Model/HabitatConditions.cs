@@ -32,7 +32,7 @@ public partial class HabitatConditions : ObservableValidator
     /// <summary>
     /// Уровень освещенности воды (в люмпенах)
     /// </summary>
-    [Range(0.0, 1000.0, ErrorMessage = "Значения для уровня освещенности быть между {1} и {2}.")]
+    [Range(0.0, 100000.0, ErrorMessage = "Значения для уровня освещенности быть между {1} и {2}.")]
     [NotifyDataErrorInfo]
     [ObservableProperty]
     private double _lighting;

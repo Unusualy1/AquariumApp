@@ -9,7 +9,7 @@ public class HabitatConditionsCfg : IEntityTypeConfiguration<HabitatConditions>
     {
 
         builder.Property(hc => hc.WaterTemperature)
-            .HasAnnotation("Range", new { Min = -273.15, Max = 1000 })
+            .HasAnnotation("Range", new { Min = -273.15, Max = 10000 })
             .IsRequired();
 
         builder.Property(hc => hc.DegreeOfAcidity)
@@ -24,11 +24,11 @@ public class HabitatConditionsCfg : IEntityTypeConfiguration<HabitatConditions>
             .HasMaxLength(100);
 
         builder.Property(hc => hc.OxygenLevel)
-            .HasAnnotation("Range", new { Min = 0.0, Max = 1000.0 })
+            .HasAnnotation("Range", new { Min = 0.0, Max = 10000.0 })
             .IsRequired();
 
         builder.Property(hc => hc.Salinity)
-            .HasAnnotation("Range", new { Min = 0.0, Max = 1000.0 })
+            .HasAnnotation("Range", new { Min = 0.0, Max = 10000.0 })
             .IsRequired();
 
         builder.HasMany(hc => hc.HabitatConditionsEvents)

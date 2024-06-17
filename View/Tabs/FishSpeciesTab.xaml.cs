@@ -20,5 +20,17 @@ public partial class FishSpeciesTab : UserControl
         DataContext = _viewModel;
     }
 
-    public void OpenNewFishSpeciesEventsWindow_Click(object sender, RoutedEventArgs e) { }
+    public void OpenNewFishSpeciesEventsWindow_Click(object sender, RoutedEventArgs e) 
+    {
+        var windowViewModel = _viewModel.CreateFishSpeciesEventsViewModel();
+
+        FishSpeciesEventsWindow fishSpeciesEventsWindow = new()
+        {
+            DataContext = windowViewModel,
+            Owner = Application.Current.MainWindow
+        };
+
+        fishSpeciesEventsWindow.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+        fishSpeciesEventsWindow.ShowDialog();
+    }
 }

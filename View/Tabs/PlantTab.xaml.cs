@@ -20,5 +20,19 @@ namespace View.Tabs
 
             DataContext = _viewModel;
         }
+
+        public void OpenNewPlantEventsWindow_Click(object sender, RoutedEventArgs e)
+        {
+            var windowViewModel = _viewModel.CreatePlantEventsViewModel();
+
+            PlantEventsWindow plantEventsWindow = new()
+            {
+                DataContext = windowViewModel,
+                Owner = Application.Current.MainWindow
+            };
+
+            plantEventsWindow.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            plantEventsWindow.ShowDialog();
+        }
     }
 }

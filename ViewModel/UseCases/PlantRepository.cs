@@ -7,18 +7,29 @@ namespace ViewModel.UseCases;
 
 public class PlantRepository : IPlantRepository
 {
+    public async Task<Plant?> GetById(long id)
+    {
+        using Context context = new();
+        return await context.Plants.FindAsync(id);
+    }
+
     public List<Plant> GetAll()
     {
         using Context context = new();
 
-        return [.. context.Plants];
+        return [.. context.Plants.Include(p => p.PlantSpecies)];
     }
 
     public async Task Add(Plant plant)
     {
         using Context context = new();
 
-        context.Plants.Add(plant);
+        if (plant.PlantSpecies != null)
+        {
+            context.Attach(plant.PlantSpecies);
+        }
+
+        await context.Plants.AddAsync(plant);
         await context.SaveChangesAsync();
     }
 

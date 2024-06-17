@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Model;
 
-public partial class HabitatConditionsEvent : Event
+public partial class HabitatConditionsEvent : EventBase
 {
     public long HabitatConditionsId { get; set; }
 

@@ -23,7 +23,16 @@ namespace View.Tabs
 
         public void OpenNewDecorationEventsWindow_Click(object sender, RoutedEventArgs e)
         {
-            
+            var windowViewModel = _viewModel.CreateDecorationEventsViewModel();
+
+            DecorationEventsWindow decorationSpeciesEventsWindow = new()
+            {
+                DataContext = windowViewModel,
+                Owner = Application.Current.MainWindow
+            };
+
+            decorationSpeciesEventsWindow.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            decorationSpeciesEventsWindow.ShowDialog();
         }
     }
 }

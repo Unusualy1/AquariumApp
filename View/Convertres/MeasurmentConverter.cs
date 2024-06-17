@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
 using System.Windows.Data;
-using ViewModel.Abstractions;
+using ViewModel.Enums;
 
 namespace View.Convertres
 {

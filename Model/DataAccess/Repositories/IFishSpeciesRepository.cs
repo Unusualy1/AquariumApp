@@ -4,7 +4,7 @@ public interface IFishSpeciesRepository
 {
     public List<FishSpecies> GetAll();
 
-    public Task<FishSpecies>? GetById(long id);
+    public Task<FishSpecies?> GetById(long id);
 
     public Task Add(FishSpecies fishSpecies); 
 

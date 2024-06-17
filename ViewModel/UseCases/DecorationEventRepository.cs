@@ -14,7 +14,7 @@ public class DecorationEventRepository : IDecorationEventRepository
         return [.. context.DecorationsEvents];
     }
 
-    public List<DecorationEvent> GetAllByDecorationId(int decorationId)
+    public List<DecorationEvent> GetAllByDecorationId(long decorationId)
     {
         using Context context = new();
 

@@ -1,4 +1,4 @@
-﻿namespace ViewModel.Abstrations
+﻿namespace ViewModel.Enums
 {
     public enum State
     {

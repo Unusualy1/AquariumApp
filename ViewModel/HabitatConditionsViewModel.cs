@@ -19,25 +19,6 @@ public partial class HabitatConditionsViewModel : BaseViewModel
     [ObservableProperty]
     private HabitatConditions? _editHabitatConditions;
 
-    [ObservableProperty]
-    public bool _isVisiblePrefactoryText = false;
-
-    [ObservableProperty]
-    public string _prefactoryText = string.Empty;
-
-    private void CheckConditions()
-    {
-        if (HabitatCondtitions == null) return;
-
-        if (HabitatCondtitions.WaterTemperature < 10 || HabitatCondtitions.WaterTemperature > 30)
-        {
-            IsVisiblePrefactoryText = true;
-            PrefactoryText = "Внимание! Неблагоприятная температура аквариума!";
-            return;
-        }
-
-        PrefactoryText = string.Empty;
-    }
 
     public HabitatConditionsViewModel()
     {
@@ -78,6 +59,63 @@ public partial class HabitatConditionsViewModel : BaseViewModel
                 CopyHabitatConditions();
                 _habitatConditionRepository.Update(HabitatCondtitions);
             }
+        }
+    }
+
+    [ObservableProperty]
+    private bool _isVisiblePrefactoryText = false;
+
+    [ObservableProperty]
+    private string _prefactoryText = string.Empty;
+
+    private const double MIN_WATER_TEMPERATURE = 22;
+    private const double MAX_WATER_TEMPERATURE = 26;
+
+    private const double MIN_OXYGEN_LEVEL = 5;
+
+    private const double MIN_PH_LEVEL = 6.5;
+    private const double MAX_PH_LEVEL = 7.5;
+
+    private const double MIN_LIGHTING_LEVEL = 2000;
+    private const double MAX_LIGHTING_LEVEL = 10000;
+
+    private void CheckConditions()
+    {
+        if (HabitatCondtitions == null) return;
+
+        bool isAnyConditionNotMet = false;
+
+        if (HabitatCondtitions.WaterTemperature < MIN_WATER_TEMPERATURE || HabitatCondtitions.WaterTemperature > MAX_WATER_TEMPERATURE)
+        {
+            IsVisiblePrefactoryText = true;
+            PrefactoryText = "Внимание! Неблагоприятная температура аквариума!";
+            isAnyConditionNotMet = true;
+        }
+
+        if (HabitatCondtitions.OxygenLevel < MIN_OXYGEN_LEVEL)
+        {
+            IsVisiblePrefactoryText = true;
+            PrefactoryText = "Внимание! Низкий уровень кислорода в аквариуме!";
+            isAnyConditionNotMet = true;
+        }
+
+        if (HabitatCondtitions.DegreeOfAcidity < MIN_PH_LEVEL || HabitatCondtitions.DegreeOfAcidity > MAX_PH_LEVEL)
+        {
+            IsVisiblePrefactoryText = true;
+            PrefactoryText = "Внимание! Несбалансированный уровень кислотности в аквариуме!";
+            isAnyConditionNotMet = true;
+        }
+
+        if (HabitatCondtitions.Lighting < MIN_LIGHTING_LEVEL || HabitatCondtitions.Lighting > MAX_LIGHTING_LEVEL)
+        {
+            IsVisiblePrefactoryText = true;
+            PrefactoryText = "Внимание! Недостаточный или избыточный уровень освещенности в аквариуме!";
+            isAnyConditionNotMet = true;
+        }
+
+        if (!isAnyConditionNotMet)
+        {
+            PrefactoryText = string.Empty;
         }
     }
 }

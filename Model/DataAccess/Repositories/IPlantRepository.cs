@@ -2,6 +2,8 @@
 
 public interface IPlantRepository
 {
+    public Task<Plant?> GetById(long id);
+
     public List<Plant> GetAll(); 
 
     public Task Add(Plant plant); 

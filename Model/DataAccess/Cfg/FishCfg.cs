@@ -31,7 +31,7 @@ public class FishCfg : IEntityTypeConfiguration<Fish>
         builder.HasOne(f => f.FishSpecies)
                .WithMany()
                .HasForeignKey(f => f.FishSpeciesId)
-               .OnDelete(DeleteBehavior.Restrict);
+               .OnDelete(DeleteBehavior.SetNull);
 
         builder.HasMany(f => f.FishEvents)
             .WithOne(e => e.Fish)

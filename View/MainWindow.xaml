@@ -15,21 +15,28 @@
     
     <Grid>
         <TabControl >
-            <TabItem Header="Условия содержания" FontFamily="Consolas" FontSize="16" >
+            <TabItem Header="Условия содержания" FontFamily="Consolas" FontSize="16" Background = "Snow" >
                 <tabs:HabitatConditionsTab/>
+            </TabItem>
+            <TabItem Header="Виды рыб" FontFamily="Consolas" FontSize="16" Background = "Snow">
+                <tabs:FishSpeciesTab/>
             </TabItem>
             <TabItem Header="Рыбы" FontFamily="Consolas" FontSize="16" Background="Snow">
                 <tabs:FishTab/>
             </TabItem>
-            <TabItem Header="Виды рыб" FontFamily="Consolas" FontSize="16">
-                <tabs:FishSpeciesTab/>
+
+            <TabItem Header="Виды растений" FontFamily="Consolas" FontSize = "16" Background = "Snow">
+                <tabs:PlantSpeciesTab/>
             </TabItem>
-            <TabItem Header="Декорации" FontFamily="Consolas" FontSize="16">
-                <tabs:DecorationTab/>
-            </TabItem>
-            <TabItem Header="Растения" FontFamily="Consolas" FontSize="16">
+
+            <TabItem Header="Растения" FontFamily="Consolas" FontSize="16" Background = "Snow">
                 <tabs:PlantTab/>
             </TabItem>
+
+            <TabItem Header="Декорации" FontFamily="Consolas" FontSize="16" Background = "Snow">
+                <tabs:DecorationTab/>
+            </TabItem>
+            
         </TabControl>
     </Grid>
 </Window>

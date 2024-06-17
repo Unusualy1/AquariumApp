@@ -20,11 +20,23 @@
         </Style>
     </Window.Resources>
     <Grid>
-        <DataGrid ItemsSource="{Binding FishEvents}"
-      AutoGenerateColumns="False"
-      ColumnHeaderStyle= "{StaticResource CenterAlignedColumnHeader}"
-      ColumnWidth="150"
-      CellStyle = "{StaticResource CenterAlignedCellStyle}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="8*"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+
+        <DataGrid Grid.Row="0" ItemsSource="{Binding FishEvents}"
+               AutoGenerateColumns="False"
+               IsReadOnly="True"
+               SelectedItem="{Binding CurrentFishEvent}"
+               ColumnHeaderStyle= "{StaticResource CenterAlignedColumnHeader}"
+               ColumnWidth="150"
+               IsEnabled="{Binding IsEnabledDataGrid}"   
+               CellStyle = "{StaticResource CenterAlignedCellStyle}">
             <DataGrid.Columns>
                 <DataGridTextColumn IsReadOnly="True" Header="ID" Binding="{Binding Id}"/>
                 <DataGridTextColumn IsReadOnly="True" Header="Тип" Binding="{Binding Type}"/>
@@ -32,5 +44,31 @@
                 <DataGridTextColumn IsReadOnly="True" Header="Время" Binding="{Binding CreatedAt}"/>
             </DataGrid.Columns>
         </DataGrid>
+
+        <Grid Margin="0,404,0,0" Grid.RowSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button  IsEnabled="{Binding IsEnabledDataGrid}" Grid.Column="0" Content="Добавить" Command="{Binding AddFishEventCommand}"/>
+            <Button  IsEnabled="{Binding IsEnabledDataGrid}" Grid.Column="1" Content="Удалить" Command="{Binding DeleteFishEventCommand}"/>
+        </Grid>
+
+        <StackPanel IsEnabled="{Binding IsEnabledFishEventInfo}" Grid.Column="1">
+            <StackPanel>
+                <Label Content="Описание" />
+                <TextBox Height="300" Text="{Binding NewFishEventDescription, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+          Style="{StaticResource errorTextStyle}"
+          Margin="5 0"/>
+            </StackPanel>
+            <Grid VerticalAlignment="Bottom" Margin="5 10" Height="30">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column = "0" Content="Принять" Width="100" HorizontalAlignment="Center" Background="DarkSeaGreen" Command="{Binding CreateFishEventCommand}"/>
+                <Button Grid.Column = "1" Content="Отменить" Width="100" HorizontalAlignment="Center" Background="IndianRed" Command="{Binding CancelFishEventCommand}"/>
+            </Grid>
+        </StackPanel>
     </Grid>
 </Window>

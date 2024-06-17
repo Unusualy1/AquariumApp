@@ -1,4 +1,4 @@
-﻿using Model.Abstactions;
+﻿using Model.Enums;
 
 namespace Model.Factories;
 
@@ -223,14 +223,7 @@ public static class EventFactory
             {
                 Id = id,
                 Type = type,
-                Description = $"Отредактирована рыба с ID {fishSpeciesId}",
-                FishSpeciesId = fishSpeciesId
-            },
-            EventType.Кормление => new FishSpeciesEvent()
-            {
-                Id = id,
-                Type = type,
-                Description = $"Покормлена рыба с ID {fishSpeciesId}",
+                Description = $"Отредактирован вид рыб с ID {fishSpeciesId}",
                 FishSpeciesId = fishSpeciesId
             },
             _ => throw new ArgumentException("Неправильно указан тип при создании FishSpeciesEvent!"),
@@ -244,19 +237,13 @@ public static class EventFactory
             EventType.Создание => new FishSpeciesEvent()
             {
                 Type = type,
-                Description = $"Создана рыба с ID {fishSpeciesId}",
+                Description = $"Создана вид рыбы с ID {fishSpeciesId}",
                 FishSpeciesId = fishSpeciesId
             },
             EventType.Редактирование => new FishSpeciesEvent()
             {
                 Type = type,
-                Description = $"Отредактирована рыба с ID {fishSpeciesId}",
-                FishSpeciesId = fishSpeciesId
-            },
-            EventType.Кормление => new FishSpeciesEvent()
-            {
-                Type = type,
-                Description = $"Покормлена рыба с ID {fishSpeciesId}",
+                Description = $"Отредактирован вид рыбы с ID {fishSpeciesId}",
                 FishSpeciesId = fishSpeciesId
             },
             _ => throw new ArgumentException("Неправильно указан тип при создании FishSpeciesEvent!"),
@@ -414,6 +401,86 @@ public static class EventFactory
                 PlantId = plantId
             },
             _ => throw new ArgumentException("Неправильно указан тип при создании PlantEvent!"),
+        };
+    }
+
+    #endregion
+
+    #region PlantSpeciesEvents
+
+    public static PlantSpeciesEvent CreateCustomPlantSpeciesEvent(long id, EventType type, string description, long plantSpeciesId)
+    {
+
+        if (type != EventType.Кастомный)
+        {
+            throw new ArgumentException("Неправильно указан тип в методе создания кастомного события для вида растений!");
+        }
+
+        return new PlantSpeciesEvent()
+        {
+            Id = id,
+            Type = type,
+            Description = description,
+            PlantSpeciesId = plantSpeciesId
+        };
+    }
+
+    public static PlantSpeciesEvent CreateCustomPlantSpeciesEvent(EventType type, string description, long plantSpeciesId)
+    {
+
+        if (type != EventType.Кастомный)
+        {
+            throw new ArgumentException("Неправильно указан тип в методе создания кастомного события для вида растений!");
+        }
+
+        return new PlantSpeciesEvent()
+        {
+            Type = type,
+            Description = description,
+            PlantSpeciesId = plantSpeciesId
+        };
+    }
+
+    public static PlantSpeciesEvent CreateStandartPlantSpeciesEvent(long id, EventType type, long plantSpeciesId)
+    {
+        return type switch
+        {
+            EventType.Создание => new PlantSpeciesEvent()
+            {
+                Id = id,
+                Type = type,
+                Description = $"Создан вид растенийа с ID {plantSpeciesId}",
+                PlantSpeciesId = plantSpeciesId
+            },
+            EventType.Редактирование => new PlantSpeciesEvent()
+            {
+                Id = id,
+                Type = type,
+                Description = $"Отредактирован вида растенийа с ID {plantSpeciesId}",
+                PlantSpeciesId = plantSpeciesId
+            },
+         
+            _ => throw new ArgumentException("Неправильно указан тип при создании PlantSpeciesEvent!"),
+        };
+    }
+
+    public static PlantSpeciesEvent CreateStandartPlantSpeciesEvent(EventType type, long plantSpeciesId)
+    {
+        return type switch
+        {
+            EventType.Создание => new PlantSpeciesEvent()
+            {
+                Type = type,
+                Description = $"Создан вид растений с ID {plantSpeciesId}",
+                PlantSpeciesId = plantSpeciesId
+            },
+            EventType.Редактирование => new PlantSpeciesEvent()
+            {
+                Type = type,
+                Description = $"Отредактирован вид растений с ID {plantSpeciesId}",
+                PlantSpeciesId = plantSpeciesId
+            },
+            _ => throw new ArgumentException("Неправильно указан тип при создании PlantSpeciesEvent!"),
         };
     }
 

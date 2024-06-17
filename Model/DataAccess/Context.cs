@@ -1,33 +1,39 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Model.Abstactions;
 using Model.DataAccess.Cfg;
+using Model.Enums;
 using Model.Factories;
 
 namespace Model.DataAccess;
 
 public class Context : DbContext
 {
+    // Fishes
     public DbSet<Fish> Fishes { get; set; }
-
-    public DbSet<FishSpecies> FishSpecies { get; set; }
-
-    public DbSet<Decoration> Decorations { get; set; }
-
-    public DbSet<Plant> Plants { get; set; }
-
-    public DbSet<HabitatConditions> HabitatConditions { get; set; }
-
-    public DbSet<DecorationEvent> DecorationsEvents { get; set; }
 
     public DbSet<FishEvent> FishEvents { get; set; }
 
+    public DbSet<FishSpecies> FishSpecies { get; set; }
+
     public DbSet<FishSpeciesEvent> FishSpeciesEvents { get; set; }
 
-    public DbSet<HabitatConditionsEvent> HabitatConditionsEvents { get; set; }
+    // Decorations
+    public DbSet<Decoration> Decorations { get; set; }
+
+    public DbSet<DecorationEvent> DecorationsEvents { get; set; }
+
+    // Plants
+    public DbSet<Plant> Plants { get; set; }
 
     public DbSet<PlantEvent> PlantEvents { get; set; }
-    
 
+    public DbSet<PlantSpecies> PlantSpecies { get; set; }
+
+    public DbSet<PlantSpeciesEvent> PlantSpeciesEvents { get; set; }
+
+    // Habitat Conditions
+    public DbSet<HabitatConditions> HabitatConditions { get; set; }
+
+    public DbSet<HabitatConditionsEvent> HabitatConditionsEvents { get; set; }
 
     public Context()
     {
@@ -47,14 +53,22 @@ public class Context : DbContext
         base.OnModelCreating(modelBuilder);
 
         modelBuilder.ApplyConfiguration(new FishCfg());
-        modelBuilder.ApplyConfiguration(new FishSpeciesCfg());
         modelBuilder.ApplyConfiguration(new FishEventCfg());
+
+        modelBuilder.ApplyConfiguration(new FishSpeciesCfg());
+        modelBuilder.ApplyConfiguration(new FishSpeciesEventCfg());
+
         modelBuilder.ApplyConfiguration(new DecorationCfg());
         modelBuilder.ApplyConfiguration(new DecorationEventCfg());
+
         modelBuilder.ApplyConfiguration(new HabitatConditionsCfg());
         modelBuilder.ApplyConfiguration(new HabitatConditionsEventCfg());
+
         modelBuilder.ApplyConfiguration(new PlantCfg());
         modelBuilder.ApplyConfiguration(new PlantEventCfg());
+
+        modelBuilder.ApplyConfiguration(new PlantSpeciesCfg());
+        modelBuilder.ApplyConfiguration(new PlantSpeciesEventCfg());
 
         modelBuilder.Entity<HabitatConditions>().HasData(new HabitatConditions
         {

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Model;
 
-public partial class PlantEvent : Event
+public partial class PlantEvent : EventBase
 {
     public long PlantId { get; set; }
 

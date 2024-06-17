@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
 
 namespace Model;
@@ -16,22 +17,20 @@ public partial class Plant : ObservableValidator
     private long _id;
 
     /// <summary>
-    /// Название вида растения
+    /// Название растения
     /// </summary>
-    [AllowNull]
-    [MaxLength(100,
-        ErrorMessage = "Название вида растения не может превышать {1} символов.")]
+    [Required]
+    [MaxLength(16, ErrorMessage = "Названия растения не может превышать {1} символов.")]
+    [NotifyDataErrorInfo]
     [ObservableProperty]
-    private string _name = string.Empty;
+    private string _name = String.Empty;
 
     /// <summary>
-    /// Описание растения
+    /// Вид растения
     /// </summary>
-    [AllowNull]
-    [MaxLength(200,
-        ErrorMessage = "Описание вида растения не может превышать {1} символов.")]
-    [ObservableProperty]
-    private string _description = string.Empty;
+    public long? PlantSpeciesId { get; set; }
+    [ForeignKey("PlantSpeciesId")]
+    public PlantSpecies? PlantSpecies { get; set; }
 
     /// <summary>
     /// Количество растений такого вида в аквариуме

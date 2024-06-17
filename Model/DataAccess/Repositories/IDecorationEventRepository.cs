@@ -4,7 +4,7 @@ public interface IDecorationEventRepository
 {
     public List<DecorationEvent> GetAll();
 
-    public List<DecorationEvent> GetAllByDecorationId(int decorationId);
+    public List<DecorationEvent> GetAllByDecorationId(long decorationId);
 
     public Task Add(DecorationEvent decorationEvent);
 

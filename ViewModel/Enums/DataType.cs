@@ -1,4 +1,4 @@
-﻿namespace ViewModel.Abstractions;
+﻿namespace ViewModel.Enums;
 
 public enum DataType
 {

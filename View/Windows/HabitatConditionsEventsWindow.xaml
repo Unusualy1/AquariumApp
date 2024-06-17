@@ -20,17 +20,42 @@
         </Style>
     </Window.Resources>
     <Grid>
-        <DataGrid ItemsSource="{Binding HabitatCondtitions.HabitatConditionsEvents}"
-          AutoGenerateColumns="False"
-          ColumnHeaderStyle= "{StaticResource CenterAlignedColumnHeader}"
-          ColumnWidth="150"
-          CellStyle = "{StaticResource CenterAlignedCellStyle}">
-            <DataGrid.Columns>
-                <DataGridTextColumn IsReadOnly="True" Header="ID" Binding="{Binding Id}"/>
-                <DataGridTextColumn IsReadOnly="True" Header="Тип" Binding="{Binding Type}"/>
-                <DataGridTextColumn IsReadOnly="True" Header="Описание" Binding="{Binding Description}"/>
-                <DataGridTextColumn IsReadOnly="True" Header="Время" Binding="{Binding CreatedAt}"/>
-            </DataGrid.Columns>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+
+        <DataGrid Grid.Row="0" Grid.Column="0"
+                  ItemsSource="{Binding HabitatCondtitions.HabitatConditionsEvents}"
+                  AutoGenerateColumns="False"
+                  ColumnHeaderStyle= "{StaticResource CenterAlignedColumnHeader}"
+                  ColumnWidth="150"
+                  CellStyle = "{StaticResource CenterAlignedCellStyle}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn IsReadOnly="True" Header="ID" Binding="{Binding Id}"/>
+                        <DataGridTextColumn IsReadOnly="True" Header="Тип" Binding="{Binding Type}"/>
+                        <DataGridTextColumn IsReadOnly="True" Header="Описание" Binding="{Binding Description}"/>
+                        <DataGridTextColumn IsReadOnly="True" Header="Время" Binding="{Binding CreatedAt}"/>
+                    </DataGrid.Columns>
         </DataGrid>
+        <Grid Grid.Row="1" Grid.Column="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Button Grid.Column="0">
+                
+            </Button>
+            <Button Grid.Column="1">
+
+            </Button>
+        </Grid>
     </Grid>
 </Window>

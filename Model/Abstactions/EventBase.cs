@@ -1,11 +1,12 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using Model.Enums;
 
 namespace Model.Abstactions;
 
 /// <summary>
 /// Модель события
 /// </summary>
-public abstract partial class Event : ObservableValidator
+public abstract partial class EventBase : ObservableValidator
 {
     /// <summary>
     /// Уникальный идентификатор события

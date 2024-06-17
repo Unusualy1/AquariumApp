@@ -1,12 +1,13 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Model;
-using Model.Abstactions;
 using Model.DataAccess.Repositories;
+using Model.Enums;
 using Model.Factories;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using ViewModel.Abstrations;
+using ViewModel.Enums;
 using ViewModel.UseCases;
 
 namespace ViewModel;
