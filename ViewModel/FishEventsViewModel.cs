@@ -13,7 +13,7 @@ namespace ViewModel;
 
 public partial class FishEventsViewModel : BaseViewModel
 {
-    private readonly IFishEventRepository _fishEventRepository = new FishEventRepository();
+    private readonly IFishEventRepository _fishEventRepository;
 
     private void SwapState()
     {
@@ -118,6 +118,14 @@ public partial class FishEventsViewModel : BaseViewModel
 
     public FishEventsViewModel(Fish fish)
     {
+        _fishEventRepository =  new FishEventRepository();
+        FishEvents = new ObservableCollection<FishEvent>(_fishEventRepository.GetAllByFishId(fish.Id));
+        CreatedWindowFish = fish;
+    }
+
+    public FishEventsViewModel(Fish fish, IFishEventRepository fishEventRepository)
+    {
+        _fishEventRepository = fishEventRepository;
         FishEvents = new ObservableCollection<FishEvent>(_fishEventRepository.GetAllByFishId(fish.Id));
         CreatedWindowFish = fish;
     }

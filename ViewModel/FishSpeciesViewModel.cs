@@ -14,8 +14,8 @@ namespace ViewModel;
 
 public partial class FishSpeciesViewModel : BaseViewModel
 {
-    private readonly IFishSpeciesRepository _fishSpeciesRepository = new FishSpeciesRepository();
-    private readonly IFishSpeciesEventRepository _fishSpeciesEventRepository = new FishSpeciesEventRepository();
+    private readonly IFishSpeciesRepository _fishSpeciesRepository;
+    private readonly IFishSpeciesEventRepository _fishSpeciesEventRepository;
 
     private State _state = State.OnDefault;
 
@@ -150,7 +150,7 @@ public partial class FishSpeciesViewModel : BaseViewModel
         CurrentFishSpecies = null;
 
         DeleteFishSpeciesCommand.NotifyCanExecuteChanged();
-        RefreshFishSpeciesCommand.Execute(null);
+        //RefreshFishSpeciesCommand.Execute(null);
     }
 
     [RelayCommand]
@@ -187,6 +187,14 @@ public partial class FishSpeciesViewModel : BaseViewModel
 
     public FishSpeciesViewModel()
     {
+        _fishSpeciesRepository = new FishSpeciesRepository();
+        _fishSpeciesEventRepository = new FishSpeciesEventRepository();
+        FishSpecies = new ObservableCollection<FishSpecies>(_fishSpeciesRepository.GetAll());
+    }
+    public FishSpeciesViewModel(IFishSpeciesEventRepository fishSpeciesEventRepository,IFishSpeciesRepository fishSpeciesRepository)
+    {
+        _fishSpeciesRepository = fishSpeciesRepository;
+        _fishSpeciesEventRepository = fishSpeciesEventRepository;
         FishSpecies = new ObservableCollection<FishSpecies>(_fishSpeciesRepository.GetAll());
     }
 

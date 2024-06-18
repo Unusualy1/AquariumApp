@@ -11,7 +11,7 @@ using System.ComponentModel.DataAnnotations;
 
 public partial class HabitatConditionsViewModel : BaseViewModel
 {
-    private readonly IHabitatConditionRepository _habitatConditionRepository = new HabitatConditionsRepository();
+    private readonly IHabitatConditionRepository _habitatConditionRepository;
 
     [ObservableProperty]
     private HabitatConditions? _habitatCondtitions = null;
@@ -22,17 +22,24 @@ public partial class HabitatConditionsViewModel : BaseViewModel
 
     public HabitatConditionsViewModel()
     {
+        _habitatConditionRepository = new HabitatConditionsRepository();
         LoadData();
     }
 
-    private void LoadData()
+    public HabitatConditionsViewModel(IHabitatConditionRepository habitatConditionRepository)
+    {
+        _habitatConditionRepository = habitatConditionRepository;
+        LoadData();
+    }
+
+    public void LoadData()
     {
         HabitatCondtitions = _habitatConditionRepository.Get();
         EditHabitatConditions = _habitatConditionRepository.Get();
         CheckConditions();
     }
 
-    private void CopyHabitatConditions()
+    public void CopyHabitatConditions()
     {
         if (EditHabitatConditions != null && HabitatCondtitions != null)
         {
@@ -79,7 +86,7 @@ public partial class HabitatConditionsViewModel : BaseViewModel
     private const double MIN_LIGHTING_LEVEL = 2000;
     private const double MAX_LIGHTING_LEVEL = 10000;
 
-    private void CheckConditions()
+    public void CheckConditions()
     {
         if (HabitatCondtitions == null) return;
 

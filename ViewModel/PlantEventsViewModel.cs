@@ -12,7 +12,7 @@ namespace ViewModel;
 
 public partial class PlantEventsViewModel : BaseViewModel
 {
-    private readonly IPlantEventRepository _plantEventRepository = new PlantEventRepository();
+    private readonly IPlantEventRepository _plantEventRepository;
 
     private void SwapState()
     {
@@ -117,6 +117,14 @@ public partial class PlantEventsViewModel : BaseViewModel
 
     public PlantEventsViewModel(Plant plant)
     {
+        _plantEventRepository = new PlantEventRepository();
+        PlantEvents = new ObservableCollection<PlantEvent>(_plantEventRepository.GetAllByPlantId(plant.Id));
+        CreatedWindowPlant = plant;
+    }
+
+    public PlantEventsViewModel(Plant plant, IPlantEventRepository plantEventRepository)
+    {
+        _plantEventRepository = plantEventRepository;
         PlantEvents = new ObservableCollection<PlantEvent>(_plantEventRepository.GetAllByPlantId(plant.Id));
         CreatedWindowPlant = plant;
     }

@@ -14,12 +14,12 @@ namespace ViewModel;
 
 public partial class DecorationsViewModel : BaseViewModel
 {
-    private readonly IDecorationRepository _decorationRepository = new DecorationRepository();
-    private readonly IDecorationEventRepository _decorationEventRepository = new DecorationEventRepository();
+    private readonly IDecorationRepository _decorationRepository;
+    private readonly IDecorationEventRepository _decorationEventRepository;
 
     private State _state = State.OnDefault;
 
-    private void SwapState(State state)
+    public void SwapState(State state)
     {
         IsEnabledDecorationInfo = !IsEnabledDecorationInfo;
         IsEnabledDataGrid = !IsEnabledDataGrid;
@@ -89,6 +89,11 @@ public partial class DecorationsViewModel : BaseViewModel
         return Decorations.Count != 0;
     }
 
+    public State GetState()
+    {
+        return _state;
+    }
+
     [RelayCommand]
     public void AddDecoration()
     {
@@ -151,7 +156,7 @@ public partial class DecorationsViewModel : BaseViewModel
         CurrentDecoration = null;
 
         DeleteDecorationCommand.NotifyCanExecuteChanged();
-        RefreshDecorationsCommand.Execute(null);
+        //RefreshDecorationsCommand.Execute(null);
     }
 
     [RelayCommand]
@@ -188,8 +193,15 @@ public partial class DecorationsViewModel : BaseViewModel
 
     public DecorationsViewModel()
     {
+        _decorationRepository  = new DecorationRepository();
+        _decorationEventRepository = new DecorationEventRepository();
         Decorations = new ObservableCollection<Decoration>(_decorationRepository.GetAll());
     }
 
-
+    public DecorationsViewModel(IDecorationEventRepository decorationEventRepository, IDecorationRepository decorationRepository)
+    {
+        _decorationRepository = decorationRepository;
+        _decorationEventRepository = decorationEventRepository;
+        Decorations = new ObservableCollection<Decoration>(_decorationRepository.GetAll());
+    }
 }

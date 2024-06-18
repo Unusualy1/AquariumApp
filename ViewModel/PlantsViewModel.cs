@@ -14,9 +14,9 @@ namespace ViewModel;
 
 public partial class PlantsViewModel : BaseViewModel
 {
-    private readonly IPlantRepository _plantRepository = new PlantRepository();
-    private readonly IPlantEventRepository _plantEventRepository = new PlantEventRepository();
-    private readonly IPlantSpeciesRepository _plantSpeciesRepository = new PlantSpeciesRepository();
+    private readonly IPlantRepository _plantRepository;
+    private readonly IPlantEventRepository _plantEventRepository;
+    private readonly IPlantSpeciesRepository _plantSpeciesRepository;
 
     private State _state = State.OnDefault;
 
@@ -166,7 +166,7 @@ public partial class PlantsViewModel : BaseViewModel
         CurrentPlant = null;
 
         DeletePlantCommand.NotifyCanExecuteChanged();
-        RefreshPlantsCommand.Execute(null);
+        //RefreshPlantsCommand.Execute(null);
     }
 
     [RelayCommand]
@@ -204,6 +204,18 @@ public partial class PlantsViewModel : BaseViewModel
 
     public PlantsViewModel()
     {
+        _plantRepository = new PlantRepository();
+        _plantEventRepository = new PlantEventRepository();
+        _plantSpeciesRepository = new PlantSpeciesRepository();
+        Plants = new ObservableCollection<Plant>(_plantRepository.GetAll());
+        PlantSpecies = new ObservableCollection<PlantSpecies>(_plantSpeciesRepository.GetAll());
+    }
+
+    public PlantsViewModel(IPlantRepository plantRepository,IPlantEventRepository plantEventRepository, IPlantSpeciesRepository plantSpeciesRepository)
+    {
+        _plantRepository = plantRepository;
+        _plantEventRepository = plantEventRepository;
+        _plantSpeciesRepository = plantSpeciesRepository;
         Plants = new ObservableCollection<Plant>(_plantRepository.GetAll());
         PlantSpecies = new ObservableCollection<PlantSpecies>(_plantSpeciesRepository.GetAll());
     }

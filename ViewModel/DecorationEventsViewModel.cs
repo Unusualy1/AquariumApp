@@ -12,7 +12,7 @@ namespace ViewModel;
 
 public partial class DecorationEventsViewModel : BaseViewModel
 {
-    private readonly IDecorationEventRepository _decorationEventRepository = new DecorationEventRepository();
+    private readonly IDecorationEventRepository _decorationEventRepository;
 
     private void SwapState()
     {
@@ -117,6 +117,14 @@ public partial class DecorationEventsViewModel : BaseViewModel
 
     public DecorationEventsViewModel(Decoration decoration)
     {
+        _decorationEventRepository = new DecorationEventRepository();
+        DecorationEvents = new ObservableCollection<DecorationEvent>(_decorationEventRepository.GetAllByDecorationId(decoration.Id));
+        CreatedWindowDecoration = decoration;
+    }
+
+    public DecorationEventsViewModel(Decoration decoration, IDecorationEventRepository decorationEventRepository)
+    {
+        _decorationEventRepository = decorationEventRepository;
         DecorationEvents = new ObservableCollection<DecorationEvent>(_decorationEventRepository.GetAllByDecorationId(decoration.Id));
         CreatedWindowDecoration = decoration;
     }

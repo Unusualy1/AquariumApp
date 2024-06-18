@@ -12,7 +12,7 @@ namespace ViewModel;
 
 public partial class PlantSpeciesEventsViewModel : BaseViewModel
 {
-    private readonly IPlantSpeciesEventRepository _plantSpeciesEventRepository = new PlantSpeciesEventRepository();
+    private readonly IPlantSpeciesEventRepository _plantSpeciesEventRepository;
 
     private void SwapState()
     {
@@ -117,6 +117,14 @@ public partial class PlantSpeciesEventsViewModel : BaseViewModel
 
     public PlantSpeciesEventsViewModel(PlantSpecies plantSpecies)
     {
+        _plantSpeciesEventRepository = new PlantSpeciesEventRepository();
+        PlantSpeciesEvents = new ObservableCollection<PlantSpeciesEvent>(_plantSpeciesEventRepository.GetAllByPlantSpeciesId(plantSpecies.Id));
+        CreatedWindowPlantSpecies = plantSpecies;
+    }
+
+    public PlantSpeciesEventsViewModel(PlantSpecies plantSpecies,IPlantSpeciesEventRepository plantSpeciesEventRepository)
+    {
+        _plantSpeciesEventRepository = plantSpeciesEventRepository;
         PlantSpeciesEvents = new ObservableCollection<PlantSpeciesEvent>(_plantSpeciesEventRepository.GetAllByPlantSpeciesId(plantSpecies.Id));
         CreatedWindowPlantSpecies = plantSpecies;
     }

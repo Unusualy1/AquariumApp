@@ -38,7 +38,7 @@ public partial class PlantSpecies : ObservableValidator
     /// Тип вида растения
     /// </summary>
     [Required(ErrorMessage = "Поле 'Тип' обязательно для заполнения.")]
-    [MaxLength(16, ErrorMessage = "Тип вида растения не может превышать {1} символов.")]
+    [MaxLength(64, ErrorMessage = "Тип вида растения не может превышать {1} символов.")]
     [NotifyDataErrorInfo]
     [ObservableProperty]
     private string _type = string.Empty;
